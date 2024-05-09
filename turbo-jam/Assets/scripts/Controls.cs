@@ -37,6 +37,24 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""lookMouse"",
+                    ""type"": ""Value"",
+                    ""id"": ""9bc2a820-3c25-4ccb-9734-675ac678ca7f"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""lookJoystick"",
+                    ""type"": ""Value"",
+                    ""id"": ""092bed89-32bc-4920-a670-8b89b821b3c4"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""hit"",
                     ""type"": ""Button"",
                     ""id"": ""7bb783c8-f505-4b26-971b-1092ef4af402"",
@@ -286,6 +304,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""Parry"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""070cbc81-2f35-4ede-9f64-6ef6f29aad2c"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""lookJoystick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ee8fb6bf-26fe-4dc9-a5df-edb1e6bd41c0"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""lookMouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -295,6 +335,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+        m_Player_lookMouse = m_Player.FindAction("lookMouse", throwIfNotFound: true);
+        m_Player_lookJoystick = m_Player.FindAction("lookJoystick", throwIfNotFound: true);
         m_Player_hit = m_Player.FindAction("hit", throwIfNotFound: true);
         m_Player_Parry = m_Player.FindAction("Parry", throwIfNotFound: true);
     }
@@ -359,6 +401,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
+    private readonly InputAction m_Player_lookMouse;
+    private readonly InputAction m_Player_lookJoystick;
     private readonly InputAction m_Player_hit;
     private readonly InputAction m_Player_Parry;
     public struct PlayerActions
@@ -366,6 +410,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         private @Controls m_Wrapper;
         public PlayerActions(@Controls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
+        public InputAction @lookMouse => m_Wrapper.m_Player_lookMouse;
+        public InputAction @lookJoystick => m_Wrapper.m_Player_lookJoystick;
         public InputAction @hit => m_Wrapper.m_Player_hit;
         public InputAction @Parry => m_Wrapper.m_Player_Parry;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -380,6 +426,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
+            @lookMouse.started += instance.OnLookMouse;
+            @lookMouse.performed += instance.OnLookMouse;
+            @lookMouse.canceled += instance.OnLookMouse;
+            @lookJoystick.started += instance.OnLookJoystick;
+            @lookJoystick.performed += instance.OnLookJoystick;
+            @lookJoystick.canceled += instance.OnLookJoystick;
             @hit.started += instance.OnHit;
             @hit.performed += instance.OnHit;
             @hit.canceled += instance.OnHit;
@@ -393,6 +445,12 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
+            @lookMouse.started -= instance.OnLookMouse;
+            @lookMouse.performed -= instance.OnLookMouse;
+            @lookMouse.canceled -= instance.OnLookMouse;
+            @lookJoystick.started -= instance.OnLookJoystick;
+            @lookJoystick.performed -= instance.OnLookJoystick;
+            @lookJoystick.canceled -= instance.OnLookJoystick;
             @hit.started -= instance.OnHit;
             @hit.performed -= instance.OnHit;
             @hit.canceled -= instance.OnHit;
@@ -419,6 +477,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnLookMouse(InputAction.CallbackContext context);
+        void OnLookJoystick(InputAction.CallbackContext context);
         void OnHit(InputAction.CallbackContext context);
         void OnParry(InputAction.CallbackContext context);
     }

@@ -8,12 +8,13 @@ public class PlayerMovement : MonoBehaviour
     private Controls inputs;
 
     private Vector2 Direction = Vector2.zero;
+    private Vector2 lookDirection = Vector2.zero;
+
 
     private Rigidbody rb;
 
     [SerializeField, Range(0f, 100f)]
     private float MaxSpeed = 10f;
-
     private float acceleration;
 
     [SerializeField, Range(0f, 100f)]
@@ -21,10 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField, Range(0f, 100f)]
     private float accelerationFalloff = 60f;
-    float angle = 0f;
-
     private float rotationSpeed = 10f;
-
     public GameObject weapon;
     private void Awake()
     {
@@ -37,6 +35,18 @@ public class PlayerMovement : MonoBehaviour
         inputs.Enable();
         inputs.Player.Movement.performed += OnMovementPerformed;
         inputs.Player.Movement.canceled += OnMovementCanceled;
+
+        inputs.Player.lookMouse.performed += OnLookMousePerformed;
+        inputs.Player.lookMouse.canceled += OnLookMouseCanceled;
+
+        inputs.Player.lookJoystick.performed += OnLookJoystickPerformed;
+        inputs.Player.lookJoystick.canceled += OnLookJoystickCanceled;
+
+        inputs.Player.hit.performed += OnHitPerformed;
+        inputs.Player.hit.canceled += OnHitCanceled;
+
+        inputs.Player.Parry.performed += OnParryPerformed;
+        inputs.Player.Parry.canceled += OnParryCanceled;
     }
 
     private void OnDisable()
@@ -44,13 +54,25 @@ public class PlayerMovement : MonoBehaviour
         inputs.Disable();
         inputs.Player.Movement.performed -= OnMovementPerformed;
         inputs.Player.Movement.canceled -= OnMovementCanceled;
+
+        inputs.Player.lookMouse.performed -= OnLookMousePerformed;
+        inputs.Player.lookMouse.canceled -= OnLookMouseCanceled;
+
+        inputs.Player.lookJoystick.performed -= OnLookJoystickPerformed;
+        inputs.Player.lookJoystick.canceled -= OnLookJoystickCanceled;
+
+        inputs.Player.hit.performed -= OnHitPerformed;
+        inputs.Player.hit.canceled -= OnHitCanceled;
+
+
+        inputs.Player.Parry.performed -= OnParryPerformed;
+        inputs.Player.Parry.canceled -= OnParryCanceled;
     }
 
     private void OnMovementPerformed(InputAction.CallbackContext inputValue)
     {
         Direction = inputValue.ReadValue<Vector2>();
         acceleration=accelerationBuildUp;
-
     }
 
     private void OnMovementCanceled(InputAction.CallbackContext inputValue)
@@ -58,6 +80,45 @@ public class PlayerMovement : MonoBehaviour
         acceleration=accelerationFalloff;
         Direction = Vector2.zero;
     }
+
+    private void OnLookMousePerformed(InputAction.CallbackContext inputValue)
+    {
+
+            // Get mouse position in screen coordinates
+            Vector2 mousePosition = Mouse.current.position.ReadValue();
+
+            // Convert mouse position to world coordinates
+            Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, Camera.main.nearClipPlane));
+
+            // Calculate direction from player position to mouse position
+            lookDirection = (worldMousePosition - transform.position).normalized;
+    }
+
+    private void OnLookMouseCanceled(InputAction.CallbackContext inputValue){}
+
+    private void OnLookJoystickPerformed(InputAction.CallbackContext inputValue)
+    {
+        lookDirection = inputValue.ReadValue<Vector2>();
+    }
+
+    private void OnLookJoystickCanceled(InputAction.CallbackContext inputValue){}
+
+    private void OnHitPerformed(InputAction.CallbackContext inputValue)
+    {
+        Debug.Log("Hit");
+        //handle weapon hit here
+    }
+
+    private void OnHitCanceled(InputAction.CallbackContext inputValue){}
+
+    private void OnParryPerformed(InputAction.CallbackContext inputValue)
+    {
+        Debug.Log("Parry");
+        //handle parry logic here
+    }
+
+    private void OnParryCanceled(InputAction.CallbackContext inputValue){}
+
     void FixedUpdate()
     {
         Vector3 velocity=rb.velocity;
@@ -67,12 +128,10 @@ public class PlayerMovement : MonoBehaviour
         velocity.x = Mathf.MoveTowards(velocity.x,Direction.x*MaxSpeed,maxSpeedChange);
         velocity.y = Mathf.MoveTowards(velocity.y,Direction.y*MaxSpeed,maxSpeedChange);
 
-        Debug.Log(velocity);
-
         rb.velocity = velocity;
 
         //rotate sword
-        Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, Direction);
+        Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, lookDirection);
         weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 }

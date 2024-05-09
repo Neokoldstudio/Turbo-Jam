@@ -15,6 +15,24 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "lookMouse",
+                    "type": "Value",
+                    "id": "9bc2a820-3c25-4ccb-9734-675ac678ca7f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "lookJoystick",
+                    "type": "Value",
+                    "id": "092bed89-32bc-4920-a670-8b89b821b3c4",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "hit",
                     "type": "Button",
                     "id": "7bb783c8-f505-4b26-971b-1092ef4af402",
@@ -262,6 +280,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Parry",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "070cbc81-2f35-4ede-9f64-6ef6f29aad2c",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "lookJoystick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ee8fb6bf-26fe-4dc9-a5df-edb1e6bd41c0",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "lookMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
