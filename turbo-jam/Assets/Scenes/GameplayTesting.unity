@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18194637, g: 0.22414702, b: 0.28719524, a: 1}
+  m_IndirectSpecularColor: {r: 0.18195611, g: 0.22416091, b: 0.2872106, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -283,6 +283,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054afe53ed3e1456ca6ce177066caf04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthPoints: 0
+  rb: {fileID: 0}
   MaxSpeed: 20
   accelerationBuildUp: 50
   accelerationFalloff: 100
@@ -877,6 +879,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951598c49d3fe8d3c833e3bc96b55eec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePoint: 0
+  attackRange: 1
 --- !u!1 &1529159066
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,6 +1095,9 @@ GameObject:
   - component: {fileID: 1746805854}
   - component: {fileID: 1746805853}
   - component: {fileID: 1746805852}
+  - component: {fileID: 1746805855}
+  - component: {fileID: 1746805856}
+  - component: {fileID: 1746805857}
   m_Layer: 0
   m_Name: Fox
   m_TagString: Untagged
@@ -1186,6 +1193,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1746805855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746805851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b04ee381b231e2cf8ce9958cfae4d0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPoints: 0
+  rb: {fileID: 1746805856}
+  ThrowForce: 10
+--- !u!54 &1746805856
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746805851}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &1746805857
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746805851}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.45, y: 0.49, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1979002199
 GameObject:
   m_ObjectHideFlags: 0

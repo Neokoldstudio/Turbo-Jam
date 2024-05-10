@@ -11,11 +11,11 @@ public class weaponManager : MonoBehaviour
         weapon = transform.GetChild(0).GetComponent<Weapon>();
     }
 
-    public void Attack()
+    public void Attack(Vector2 Direction)
     {
         if (weapon != null)
         {
-            weapon.Attack();
+            weapon.Attack(Direction);
         }
         else
         {

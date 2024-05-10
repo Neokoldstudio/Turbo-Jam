@@ -10,9 +10,6 @@ public class PlayerMovement : Entity
     private Vector2 Direction = Vector2.zero;
     private Vector2 lookDirection = Vector2.zero;
 
-
-    private Rigidbody rb;
-
     [SerializeField, Range(0f, 100f)]
     private float MaxSpeed = 10f;
     private float acceleration;
@@ -108,10 +105,7 @@ public class PlayerMovement : Entity
 
     private void OnHitPerformed(InputAction.CallbackContext inputValue)
     {
-        Debug.Log("Hit");
-        weapon.GetComponent<weaponManager>().Attack();
-        rb.AddForce(lookDirection.x * hitForce, lookDirection.y * hitForce, 0, ForceMode.Impulse);
-        //handle weapon hit here
+        hit();
     }
 
     private void OnHitCanceled(InputAction.CallbackContext inputValue){}
@@ -124,8 +118,14 @@ public class PlayerMovement : Entity
 
     private void OnParryCanceled(InputAction.CallbackContext inputValue){}
 
-    public void getHit()
+    public override void getHit(int Damage, Vector2 Direction)
     {
+    }
+
+    public override void hit()
+    {
+        weapon.GetComponent<weaponManager>().Attack(lookDirection);
+        rb.AddForce(lookDirection.x * hitForce, lookDirection.y * hitForce, 0, ForceMode.Impulse);
     }
 
     void FixedUpdate()

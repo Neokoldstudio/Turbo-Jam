@@ -4,7 +4,10 @@ using UnityEngine;
 
 public abstract class Entity : MonoBehaviour
 {
-    [SerializeField, Range(0f, 1000f)]
-    private float healthPoints;
-    private void getHit(int Damage){}
+    [SerializeField, Range(0, 1000)]
+    private int healthPoints;
+    public Rigidbody rb;
+    public virtual void getHit(int Damage, Vector2 Direction){}
+
+    public virtual void hit(){}
 }
