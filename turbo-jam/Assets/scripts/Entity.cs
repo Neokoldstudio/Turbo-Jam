@@ -7,7 +7,7 @@ public abstract class Entity : MonoBehaviour
     [SerializeField, Range(0, 1000)]
     private int healthPoints;
     public Rigidbody rb;
-    public virtual void getHit(int Damage, Vector2 Direction){}
+    public abstract void getHit(int Damage, Vector2 Direction);
 
-    public virtual void hit(){}
+    public abstract void hit();
 }
