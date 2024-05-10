@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Entity
 {
     private Controls inputs;
 
@@ -23,6 +23,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Range(0f, 100f)]
     private float accelerationFalloff = 60f;
     private float rotationSpeed = 10f;
+
+    [SerializeField, Range(0f, 100f)]
+    private float hitForce = 5f;
     public GameObject weapon;
     private void Awake()
     {
@@ -106,6 +109,8 @@ public class PlayerMovement : MonoBehaviour
     private void OnHitPerformed(InputAction.CallbackContext inputValue)
     {
         Debug.Log("Hit");
+        weapon.GetComponent<weaponManager>().Attack();
+        rb.AddForce(lookDirection.x * hitForce, lookDirection.y * hitForce, 0, ForceMode.Impulse);
         //handle weapon hit here
     }
 
@@ -118,6 +123,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void OnParryCanceled(InputAction.CallbackContext inputValue){}
+
+    public void getHit()
+    {
+    }
 
     void FixedUpdate()
     {
