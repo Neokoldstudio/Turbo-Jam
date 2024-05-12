@@ -146,5 +146,6 @@ public class PlayerMovement : Entity
         //rotate sword
         Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, lookDirection);
         weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        weapon.transform.localScale = new Vector3(Mathf.Sign(lookDirection.x), weapon.transform.localScale.y, weapon.transform.localScale.z);
     }
 }
