@@ -22,4 +22,16 @@ public class weaponManager : MonoBehaviour
             Debug.LogWarning("Weapon reference is not set!");
         }
     }
+
+    public void Parry()
+    {
+        if (weapon != null)
+        {
+            weapon.Parry();
+        }
+        else
+        {
+            Debug.LogWarning("Weapon reference is not set!");
+        }
+    }
 }

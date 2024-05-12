@@ -112,8 +112,7 @@ public class PlayerMovement : Entity
 
     private void OnParryPerformed(InputAction.CallbackContext inputValue)
     {
-        Debug.Log("Parry");
-        //handle parry logic here
+        parry();
     }
 
     private void OnParryCanceled(InputAction.CallbackContext inputValue){}
@@ -126,6 +125,11 @@ public class PlayerMovement : Entity
     {
         weapon.GetComponent<weaponManager>().Attack(lookDirection);
         rb.AddForce(lookDirection.x * hitForce, lookDirection.y * hitForce, 0, ForceMode.Impulse);
+    }
+
+    public override void parry()
+    {
+        weapon.GetComponent<weaponManager>().Parry();
     }
 
     void FixedUpdate()

@@ -10,4 +10,5 @@ public abstract class Entity : MonoBehaviour
     public abstract void getHit(int Damage, Vector2 Direction);
 
     public abstract void hit();
+    public virtual void parry(){}
 }

@@ -9,4 +9,5 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField, Range(0f, 10f)]
     public float attackRange;
     public abstract void Attack(Vector2 direction);
+    public abstract void Parry();
 }
