@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,9 @@ public class PlayerMovement : Entity
     [SerializeField, Range(0f, 100f)]
     private float hitForce = 5f;
     public GameObject weapon;
+
+    public Animator playerAnim;
+
     private void Awake()
     {
         inputs = new Controls();
@@ -72,12 +76,14 @@ public class PlayerMovement : Entity
     private void OnMovementPerformed(InputAction.CallbackContext inputValue)
     {
         Direction = inputValue.ReadValue<Vector2>();
+        playerAnim.SetBool("run", true);
         acceleration=accelerationBuildUp;
     }
 
     private void OnMovementCanceled(InputAction.CallbackContext inputValue)
     {
         acceleration=accelerationFalloff;
+        playerAnim.SetBool("run", false);
         Direction = Vector2.zero;
     }
 
