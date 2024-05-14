@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +8,6 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : Entity
 {
     private Controls inputs;
-
     private Vector2 Direction = Vector2.zero;
     private Vector2 lookDirection = Vector2.zero;
 
@@ -24,14 +24,18 @@ public class PlayerMovement : Entity
 
     [SerializeField, Range(0f, 100f)]
     private float hitForce = 5f;
+
+    private float spriteSize;
     public GameObject weapon;
+    public GameObject sprite;
 
     public Animator playerAnim;
-
     private void Awake()
     {
         inputs = new Controls();
+        acceleration = accelerationBuildUp;
         rb = GetComponent<Rigidbody>();
+        spriteSize = sprite.transform.localScale.x;
     }
 
     private void OnEnable()
@@ -149,9 +153,12 @@ public class PlayerMovement : Entity
 
         rb.velocity = velocity;
 
+        if(Mathf.Sign(sprite.transform.localScale.x)!=Mathf.Sign(Direction.x) && Direction.x != 0.0f)
+            sprite.transform.localScale = new Vector3(Mathf.Sign(Direction.x)*spriteSize, sprite.transform.localScale.y, sprite.transform.localScale.z);
+
         //rotate sword
         Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, lookDirection);
         weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        weapon.transform.localScale = new Vector3(Mathf.Sign(lookDirection.x), weapon.transform.localScale.y, weapon.transform.localScale.z);
+        weapon.transform.localScale = new Vector3(Mathf.Sign(lookDirection.x), 1.0f, weapon.transform.localScale.z);
     }
 }
