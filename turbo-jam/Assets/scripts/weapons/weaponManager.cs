@@ -11,15 +11,16 @@ public class weaponManager : MonoBehaviour
         weapon = transform.GetChild(0).GetComponent<Weapon>();
     }
 
-    public void Attack(Vector2 Direction)
+    public bool Attack(Vector2 Direction)
     {
         if (weapon != null)
         {
-            weapon.Attack(Direction);
+            return weapon.Attack(Direction);
         }
         else
         {
             Debug.LogWarning("Weapon reference is not set!");
+            return false;
         }
     }
 
@@ -32,6 +33,18 @@ public class weaponManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Weapon reference is not set!");
+        }
+    }
+    public float getParryStun()
+    {
+        if (weapon != null)
+        {
+            return weapon.parryStun;
+        }
+        else
+        {
+            Debug.LogWarning("Weapon reference is not set!");
+            return 0f;
         }
     }
 }

@@ -30,8 +30,20 @@ public class PlayerMovement : Entity
     public GameObject sprite;
 
     public Animator playerAnim;
+
+    private State currentState;
+    private enum State{
+        Idle,
+        Move,
+        Parrying,
+        Attacking,
+        Buying,
+        Dead
+    }
+
     private void Awake()
     {
+        currentState = State.Move;
         inputs = new Controls();
         acceleration = accelerationBuildUp;
         rb = GetComponent<Rigidbody>();
@@ -108,21 +120,21 @@ public class PlayerMovement : Entity
 
     private void OnLookJoystickPerformed(InputAction.CallbackContext inputValue)
     {
-        lookDirection = inputValue.ReadValue<Vector2>();
+        lookDirection = (inputValue.ReadValue<Vector2>()).normalized;
     }
 
     private void OnLookJoystickCanceled(InputAction.CallbackContext inputValue){}
 
     private void OnHitPerformed(InputAction.CallbackContext inputValue)
     {
-        hit();
+        currentState = State.Attacking;
     }
 
     private void OnHitCanceled(InputAction.CallbackContext inputValue){}
 
     private void OnParryPerformed(InputAction.CallbackContext inputValue)
     {
-        parry();
+        currentState = State.Parrying;
     }
 
     private void OnParryCanceled(InputAction.CallbackContext inputValue){}
@@ -131,18 +143,28 @@ public class PlayerMovement : Entity
     {
     }
 
+    private void Idle()
+    {
+        //Pour plus tard, si jamais on veut avoir des events qui se passent sur le Idle (comme des petites animations qui se lancent après un certains temps)
+    }
     public override void hit()
     {
-        weapon.GetComponent<weaponManager>().Attack(lookDirection);
-        rb.AddForce(lookDirection.x * hitForce, lookDirection.y * hitForce, 0, ForceMode.Impulse);
+        if(weapon.GetComponent<weaponManager>().Attack(lookDirection))
+        {
+            rb.AddForce(lookDirection.x * hitForce, lookDirection.y * hitForce, 0, ForceMode.Impulse);
+        }
+        currentState = State.Move;
     }
 
     public override void parry()
     {
         weapon.GetComponent<weaponManager>().Parry();
+        rb.velocity = Vector3.zero;
+        currentState = State.Idle;
+        StartCoroutine(ParryStun());
     }
 
-    void FixedUpdate()
+    private void Move()
     {
         Vector3 velocity=rb.velocity;
 
@@ -160,5 +182,34 @@ public class PlayerMovement : Entity
         Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, lookDirection);
         weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         weapon.transform.localScale = new Vector3(Mathf.Sign(lookDirection.x), 1.0f, weapon.transform.localScale.z);
+    }
+
+    void FixedUpdate()
+    {
+        switch (currentState)
+        {
+            case State.Idle:
+                Idle();
+                break;
+            case State.Move:
+                Move();
+                break;
+            case State.Attacking:
+                hit();
+                break;
+            case State.Parrying:
+                parry();
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    //Coroutines
+    IEnumerator ParryStun()
+    {
+        yield return new WaitForSeconds(weapon.GetComponent<weaponManager>().getParryStun());
+        currentState = State.Move;
     }
 }

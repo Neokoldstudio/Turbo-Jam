@@ -213,21 +213,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5876436}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5876438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5876437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b04ee381b231e2cf8ce9958cfae4d0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthPoints: 0
-  rb: {fileID: 5876439}
-  ThrowForce: 242
 --- !u!54 &5876439
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5301,6 +5286,7 @@ GameObject:
   - component: {fileID: 501308596}
   - component: {fileID: 501308598}
   - component: {fileID: 501308597}
+  - component: {fileID: 501308599}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -5378,6 +5364,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &501308599
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 501308595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 1
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!1 &662641489 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 564416901440662877, guid: 3c277180989f59a4e8a292405eede872,
+    type: 3}
+  m_PrefabInstance: {fileID: 564416900800478298}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1839735485 &662641493
+Tilemap:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662641489}
+  m_Enabled: 1
+  m_Tiles: {}
+  m_AnimatedTiles: {}
+  m_TileAssetArray: []
+  m_TileSpriteArray: []
+  m_TileMatrixArray: []
+  m_TileColorArray: []
+  m_TileObjectToInstantiateArray: []
+  m_AnimationFrameRate: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Origin: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0, y: 0, z: 1}
+  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileOrientation: 0
+  m_TileOrientationMatrix:
+    e00: 1
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
 --- !u!1 &666077380
 GameObject:
   m_ObjectHideFlags: 0
@@ -5622,7 +5669,7 @@ Transform:
   m_Children:
   - {fileID: 500353113}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &802881516
 MonoBehaviour:
@@ -5736,6 +5783,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2294941057329831142, guid: fdb67c5a6d699604abe9e8a0de81ee7d,
         type: 3}
+      propertyPath: hitForce
+      value: 25.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2294941057329831142, guid: fdb67c5a6d699604abe9e8a0de81ee7d,
+        type: 3}
       propertyPath: playerAnim
       value: 
       objectReference: {fileID: 1144933760}
@@ -5748,6 +5800,11 @@ PrefabInstance:
         type: 3}
       propertyPath: accelerationFalloff
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2294941057329831143, guid: fdb67c5a6d699604abe9e8a0de81ee7d,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 2294941057329831161, guid: fdb67c5a6d699604abe9e8a0de81ee7d,
         type: 3}
@@ -5887,7 +5944,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1144933760 stripped
 Animator:
@@ -6029,9 +6086,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagePoint: 266
-  attackRange: 2.66
+  attackRange: 0.09
   sword_animation: {fileID: 1529697437}
   swingVfx: {fileID: 2294875446058820411, guid: 50a367ef21f4a374b81442774025a37e,
+    type: 3}
+  impactVfx: {fileID: 1460331882626841338, guid: d0aa8ff305fdcd543b163c235c4df9e5,
+    type: 3}
+  slashVfx: {fileID: 7867275898773274813, guid: 7ce77c901f7b9da43a435936d52780b4,
     type: 3}
 --- !u!1 &1740119963
 GameObject:
@@ -6044,6 +6105,7 @@ GameObject:
   - component: {fileID: 1740119967}
   - component: {fileID: 1740119966}
   - component: {fileID: 1740119964}
+  - component: {fileID: 1740119968}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -6117,6 +6179,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1740119968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740119963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 797ba77da2b1d9c14a6c59c4fce42d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &564416900800478298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6201,7 +6275,7 @@ PrefabInstance:
     - target: {fileID: 1460331882626841334, guid: d0aa8ff305fdcd543b163c235c4df9e5,
         type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1460331882626841334, guid: d0aa8ff305fdcd543b163c235c4df9e5,
         type: 3}
@@ -6275,7 +6349,7 @@ PrefabInstance:
     - target: {fileID: 2377731577653737356, guid: 50a367ef21f4a374b81442774025a37e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 2377731577653737356, guid: 50a367ef21f4a374b81442774025a37e,
         type: 3}
@@ -6344,7 +6418,7 @@ PrefabInstance:
     - target: {fileID: 7867275898773274801, guid: 7ce77c901f7b9da43a435936d52780b4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7867275898773274801, guid: 7ce77c901f7b9da43a435936d52780b4,
         type: 3}

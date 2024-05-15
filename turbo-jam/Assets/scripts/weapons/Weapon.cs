@@ -8,6 +8,9 @@ public abstract class Weapon : MonoBehaviour
     public int damagePoint;
     [SerializeField, Range(0f, 10f)]
     public float attackRange;
-    public abstract void Attack(Vector2 direction);
+
+    [SerializeField, Range(0f, 10f)]
+    public float parryStun;
+    public abstract bool Attack(Vector2 direction);
     public abstract void Parry();
 }
