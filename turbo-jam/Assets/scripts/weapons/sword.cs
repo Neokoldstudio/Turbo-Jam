@@ -12,6 +12,7 @@ public class sword : Weapon
     public GameObject impactVfx;
     public GameObject slashVfx;
     private Vector2 attackDir;
+
     public override bool Attack(Vector2 direction)
     {
         if(!sword_animation.GetBool("swing"))

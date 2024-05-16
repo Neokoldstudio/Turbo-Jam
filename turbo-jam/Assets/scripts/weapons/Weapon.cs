@@ -9,6 +9,8 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField, Range(0f, 10f)]
     public float attackRange;
 
+    [SerializeField] AudioClip SFX_swing;
+
     [SerializeField, Range(0f, 10f)]
     public float parryStun;
     public abstract bool Attack(Vector2 direction);
