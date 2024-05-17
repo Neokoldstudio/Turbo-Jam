@@ -44,7 +44,7 @@ public class weaponManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Weapon reference is not set!");
-            return 0f;
+            return 1f;
         }
     }
 }

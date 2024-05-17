@@ -9,7 +9,6 @@ public class sword : Weapon
 
     [SerializeField, Range(0f, 10f)]
     public float vfxRange;
-
     public GameObject swingVfx;
     public GameObject impactVfx;
     public GameObject slashVfx;
@@ -17,34 +16,43 @@ public class sword : Weapon
 
     public override bool Attack(Vector2 direction)
     {
-        if(!sword_animation.GetBool("swing"))
+        if (!sword_animation.GetBool("swing"))
         {
             sword_animation.SetTrigger("swing");
-
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange, enemyLayer);
-
-            foreach (Collider hitCollider in hitColliders)
-            {
-                Entity entity = hitCollider.GetComponent<Entity>();
-                if (entity != null)
-                {
-                    entity.getHit(damagePoint, direction);
-                    SlashVfx(entity.transform);
-                    ImpactVfx(entity.transform);
-                }
-            }
             attackDir = direction;
             return true;
         }
         return false;
     }
 
+    public override void Parry()
+    {
+        sword_animation.SetTrigger("parry");
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("oui");
+
+        Entity entity = other.GetComponent<Entity>();
+        if (entity != null)
+        {
+            // Add the entity to the list of entities hit
+            entity.getHit(damagePoint, attackDir);
+            SlashVfx(entity.transform);
+            ImpactVfx(entity.transform);
+        }
+    }
+
+
+    #region VFX
+
     public void SwingVfx()
     {
         GameObject swing = Instantiate(swingVfx);
         swing.transform.position = new Vector3(transform.position.x + attackDir.x * vfxRange, transform.position.y + attackDir.y * vfxRange, transform.position.z);
         swing.transform.rotation = Quaternion.LookRotation(Vector3.forward, attackDir);
-        swing.transform.rotation *= Quaternion.Euler(0, 0, 90);
+        swing.transform.rotation *= Quaternion.Euler(0, 0, 90);//rotate 90 degrees to align the swing effect with the weapon
         swing.transform.localScale = transform.localScale;
     }
 
@@ -65,22 +73,5 @@ public class sword : Weapon
     {
         CinemachineShake.Instance.Shake(5f, .1f);
     }
-
-    public override void Parry()
-    {
-        sword_animation.SetTrigger("parry");
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("oui");
-
-        Entity entity = other.GetComponent<Entity>();
-        if (entity != null)
-        {
-            // Add the entity to the list of entities hit
-
-            entity.getHit(damagePoint, attackDir);
-        }
-    }
+    #endregion
 }

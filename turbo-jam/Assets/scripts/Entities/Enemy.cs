@@ -58,36 +58,6 @@ public class Enemy : Entity
         currentState = State.Move;
     }
 
-    private void Update()
-    {
-        if (player != null)
-        {
-            // Calculate direction to player
-            Vector3 directionToPlayer = player.position - transform.position;
-            direction = new Vector2(directionToPlayer.x, directionToPlayer.y).normalized;
-
-            // Cast a ray in the direction the enemy is facing
-            RaycastHit hit;
-            Vector3 rayDirection = new Vector3(direction.x, 0, 0);
-
-            if (Physics.Raycast(transform.position, rayDirection, out hit, attackRange))
-            {
-                if (hit.collider.transform == player)
-                {
-                    currentState = State.Attacking;
-                }
-                else
-                {
-                    currentState = State.Move;
-                }
-            }
-            else
-            {
-                currentState = State.Move;
-            }
-        }
-    }
-
     private void Move()
     {
         Vector3 velocity = rb.velocity;
@@ -106,11 +76,33 @@ public class Enemy : Entity
         Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, direction);
         weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         weapon.transform.localScale = new Vector3(Mathf.Sign(direction.x), 1.0f, weapon.transform.localScale.z);
+
+
+        if (player != null)
+        {
+            // Calculate direction to player
+            Vector3 directionToPlayer = player.position - transform.position;
+            direction = new Vector2(directionToPlayer.x, directionToPlayer.y).normalized;
+
+            // Cast a ray in the direction the enemy is facing
+            RaycastHit hit;
+            Vector3 rayDirection = new Vector3(direction.x, 0, 0);
+
+            if (Physics.Raycast(transform.position, rayDirection, out hit, attackRange))
+            {
+                if (hit.collider.transform == player)
+                {
+                    print("attack !!!");
+                    currentState = State.Attacking;
+                }
+            }
+        }
     }
 
     private void Idle()
     {
         // Idle behavior here
+        StartCoroutine(AttackStun());
     }
 
     public override void hit()
@@ -130,6 +122,9 @@ public class Enemy : Entity
     public override void getHit(int Damage, Vector2 Direction)
     {
         // Handle getting hit
+        currentState = State.Idle;
+        print("ouch");
+        rb.AddForce(new Vector2(Direction.x * hitForce, Direction.y * hitForce),ForceMode2D.Impulse);
     }
 
     private void Attack()
@@ -139,7 +134,7 @@ public class Enemy : Entity
         {
             rb.AddForce(new Vector2(direction.x * hitForce, direction.y * hitForce),ForceMode2D.Impulse);
         }
-        currentState = State.Move;
+        currentState = State.Idle;
     }
 
     void FixedUpdate()
@@ -158,5 +153,12 @@ public class Enemy : Entity
             default:
                 break;
         }
+    }
+
+    //Coroutines
+    IEnumerator AttackStun()
+    {
+        yield return new WaitForSeconds(weapon.GetComponent<weaponManager>().getParryStun());
+        currentState = State.Move;
     }
 }
