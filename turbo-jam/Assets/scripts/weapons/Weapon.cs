@@ -13,6 +13,8 @@ public abstract class Weapon : MonoBehaviour
 
     [SerializeField, Range(0f, 10f)]
     public float parryStun;
+
+    public LayerMask enemyLayer;
     public abstract bool Attack(Vector2 direction);
     public abstract void Parry();
 }

@@ -46,7 +46,7 @@ public class PlayerMovement : Entity
         currentState = State.Move;
         inputs = new Controls();
         acceleration = accelerationBuildUp;
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
         spriteSize = sprite.transform.localScale.x;
     }
 
@@ -151,7 +151,8 @@ public class PlayerMovement : Entity
     {
         if(weapon.GetComponent<weaponManager>().Attack(lookDirection))
         {
-            rb.AddForce(lookDirection.x * hitForce, lookDirection.y * hitForce, 0, ForceMode.Impulse);
+            Vector2 vec = new Vector2(lookDirection.x * hitForce, lookDirection.y * hitForce);
+            rb.AddForce(vec, ForceMode2D.Impulse);
         }
         currentState = State.Move;
     }

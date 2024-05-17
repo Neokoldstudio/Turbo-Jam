@@ -5,6 +5,7 @@ using UnityEngine;
 public class AnimationController : MonoBehaviour
 {
     public CanvasAnimation canvasAnim;
+    public GameObject menu;
 
     Animator anim;
 
@@ -16,7 +17,8 @@ public class AnimationController : MonoBehaviour
 
     public void ShowMenu()
     {
-        canvasAnim.gameObject.SetActive(true);
+        canvasAnim.ShowTitle();
+        menu.SetActive(true);
     }
 
     public void HideTitle()

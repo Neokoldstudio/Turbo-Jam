@@ -38,7 +38,7 @@ public class Enemy : Entity
     private void Awake()
     {
         currentState = State.Idle;
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody2D>();
         spriteSize = sprite.transform.localScale.x;
 
         // Find the player by tag
@@ -117,7 +117,7 @@ public class Enemy : Entity
     {
         if (weapon.GetComponent<weaponManager>().Attack(lookDirection))
         {
-            rb.AddForce(lookDirection.x * hitForce, lookDirection.y * hitForce, 0, ForceMode.Impulse);
+            rb.AddForce(new Vector2(lookDirection.x * hitForce, lookDirection.y * hitForce),ForceMode2D.Impulse);
         }
         currentState = State.Move;
     }
@@ -137,7 +137,7 @@ public class Enemy : Entity
         // Attack behavior here
         if (weapon.GetComponent<weaponManager>().Attack(direction))
         {
-            rb.AddForce(direction.x * hitForce, direction.y * hitForce, 0, ForceMode.Impulse);
+            rb.AddForce(new Vector2(direction.x * hitForce, direction.y * hitForce),ForceMode2D.Impulse);
         }
         currentState = State.Move;
     }

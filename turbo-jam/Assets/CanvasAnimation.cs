@@ -11,6 +11,11 @@ public class CanvasAnimation : MonoBehaviour
         if (anim == null)
             anim = GetComponent<Animator>();
     }
+     
+    public void ShowTitle()
+    {
+        anim.SetTrigger("ShowTitle");
+    }
 
     public void HideTitle()
     {

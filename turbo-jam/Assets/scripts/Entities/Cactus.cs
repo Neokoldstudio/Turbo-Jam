@@ -9,7 +9,8 @@ public class Cactus : Entity
     public override void getHit(int damage, Vector2 Direction)
     {
         Debug.Log(Direction);
-        rb.AddForce(Direction.x * ThrowForce, Direction.y * ThrowForce, 0f, ForceMode.Impulse);
+        Vector2 throwForce = new Vector2(Direction.x * ThrowForce, Direction.y * ThrowForce);
+        rb.AddForce(throwForce, ForceMode2D.Impulse);
     }
 
     public override void hit()

@@ -7,7 +7,9 @@ public class sword : Weapon
 
     public Animator sword_animation;
 
-    [SerializeField, Range(0f,10f)]
+    [SerializeField, Range(0f, 10f)]
+    public float vfxRange;
+
     public GameObject swingVfx;
     public GameObject impactVfx;
     public GameObject slashVfx;
@@ -19,7 +21,7 @@ public class sword : Weapon
         {
             sword_animation.SetTrigger("swing");
 
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange);
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange, enemyLayer);
 
             foreach (Collider hitCollider in hitColliders)
             {
@@ -40,7 +42,7 @@ public class sword : Weapon
     public void SwingVfx()
     {
         GameObject swing = Instantiate(swingVfx);
-        swing.transform.position = new Vector3(transform.position.x + attackDir.x, transform.position.y + attackDir.y, transform.position.z);
+        swing.transform.position = new Vector3(transform.position.x + attackDir.x * vfxRange, transform.position.y + attackDir.y * vfxRange, transform.position.z);
         swing.transform.rotation = Quaternion.LookRotation(Vector3.forward, attackDir);
         swing.transform.rotation *= Quaternion.Euler(0, 0, 90);
         swing.transform.localScale = transform.localScale;

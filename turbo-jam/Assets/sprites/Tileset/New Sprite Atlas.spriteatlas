@@ -55,6 +55,7 @@ SpriteAtlas:
   - {fileID: 1986445773, guid: cf827484e350ca34b8759613b79b1230, type: 3}
   - {fileID: 1131183549, guid: cf827484e350ca34b8759613b79b1230, type: 3}
   - {fileID: -402246934, guid: cf827484e350ca34b8759613b79b1230, type: 3}
+  - {fileID: -1157800, guid: cf827484e350ca34b8759613b79b1230, type: 3}
   - {fileID: -562783784, guid: cf827484e350ca34b8759613b79b1230, type: 3}
   - {fileID: 633262514, guid: cf827484e350ca34b8759613b79b1230, type: 3}
   - {fileID: -904379637, guid: cf827484e350ca34b8759613b79b1230, type: 3}
@@ -94,6 +95,7 @@ SpriteAtlas:
   - TileSetVrai_33
   - TileSetVrai_60
   - TileSetVrai_61
+  - TileSetVrai_18
   - TileSetVrai_73
   - TileSetVrai_72
   - TileSetVrai_71
