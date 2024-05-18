@@ -36,6 +36,10 @@ public class PlayerMovement : Entity
     [SerializeField] AudioClip SFX_player_attack;
 
     private State currentState;
+
+    private bool IsParrying = false;
+
+    private IEnumerator parryStun;
     private enum State{
         Idle,
         Move,
@@ -52,8 +56,10 @@ public class PlayerMovement : Entity
         acceleration = accelerationBuildUp;
         rb = GetComponent<Rigidbody2D>();
         spriteSize = sprite.transform.localScale.x;
+        parryStun = ParryStun();
     }
 
+    #region INPUTS
     private void OnEnable()
     {
         inputs.Enable();
@@ -147,14 +153,21 @@ public class PlayerMovement : Entity
 
     private void OnParryCanceled(InputAction.CallbackContext inputValue){}
 
+    #endregion
+
+    #region STATES
     public override void getHit(int Damage, Vector2 Direction)
     {
+        if(IsParrying)
+        {
+            print("parried");
+            StopCoroutine(parryStun);
+            currentState = State.Move;
+            TimeManager.Instance.SlowTimeSmooth(0.3f,0.1f,0.3f);
+            IsParrying = false;
+        }
     }
 
-    private void Idle()
-    {
-        //Pour plus tard, si jamais on veut avoir des events qui se passent sur le Idle (comme des petites animations qui se lancent après un certains temps)
-    }
     public override void hit()
     {
         if(weapon.GetComponent<weaponManager>().Attack(lookDirection))
@@ -168,9 +181,15 @@ public class PlayerMovement : Entity
     public override void parry()
     {
         weapon.GetComponent<weaponManager>().Parry();
+        IsParrying = true;
         rb.velocity = Vector3.zero;
         currentState = State.Idle;
-        StartCoroutine(ParryStun());
+        StartCoroutine(parryStun);
+    }
+
+    private void Idle()
+    {
+        //Pour plus tard, si jamais on veut avoir des events qui se passent sur le Idle (comme des petites animations qui se lancent après un certains temps)
     }
 
     private void Move()
@@ -192,6 +211,8 @@ public class PlayerMovement : Entity
         weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         weapon.transform.localScale = new Vector3(Mathf.Sign(lookDirection.x), 1.0f, weapon.transform.localScale.z);
     }
+
+    #endregion
 
     void FixedUpdate()
     {
@@ -219,6 +240,8 @@ public class PlayerMovement : Entity
     IEnumerator ParryStun()
     {
         yield return new WaitForSeconds(weapon.GetComponent<weaponManager>().getParryStun());
+        IsParrying = false;
         currentState = State.Move;
     }
+
 }

@@ -32,8 +32,6 @@ public class sword : Weapon
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("oui");
-
         Entity entity = other.GetComponent<Entity>();
         if (entity != null)
         {
