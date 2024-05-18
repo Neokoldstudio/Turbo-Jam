@@ -43,6 +43,8 @@ public class Enemy : Entity
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
+
         currentState = State.Idle;
         rb = GetComponent<Rigidbody2D>();
         spriteSize = sprite.transform.localScale.x;
@@ -133,7 +135,8 @@ public class Enemy : Entity
         rb.AddForce(new Vector2(Direction.x * hitForce, Direction.y * hitForce),ForceMode2D.Impulse);
 
         // hurt SFX plays 
-        
+        audioSource.clip = SFX_hurt;
+        audioSource.Play();
     }
 
     private void Attack()
@@ -152,12 +155,8 @@ public class Enemy : Entity
     void FixedUpdate()
     {
         // update audioSource position
-        if (!audioSource.isPlaying)
-        {
-            AudioSource t = Instantiate(audioSource, this.transform.position, Quaternion.identity);
-            Destroy(audioSource.gameObject);
-            audioSource = t;
-        }
+        AudioSource t = Instantiate(audioSource, transform.position, Quaternion.identity);
+        audioSource = t;
 
         switch (currentState)
         {
