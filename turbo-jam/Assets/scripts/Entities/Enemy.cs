@@ -27,6 +27,12 @@ public class Enemy : Entity
 
     public Animator enemyAnim;
 
+    [SerializeField] AudioClip SFX_hurt;
+    [SerializeField] AudioClip SFX_death;
+    [SerializeField] AudioClip SFX_attack;
+
+    private AudioSource audioSource;
+
     private State currentState;
     private enum State{
         Idle,
@@ -125,6 +131,15 @@ public class Enemy : Entity
         currentState = State.Idle;
         print("ouch");
         rb.AddForce(new Vector2(Direction.x * hitForce, Direction.y * hitForce),ForceMode2D.Impulse);
+
+        // SFX plays 
+        AudioSource source = new AudioSource();
+        source.clip = SFX_hurt;
+        source.Play();
+        Destroy(source, SFX_hurt.length);
+
+
+        SFXManager.instance.SFXplayer(SFX_hurt, transform, 1f);
     }
 
     private void Attack()
@@ -139,6 +154,9 @@ public class Enemy : Entity
 
     void FixedUpdate()
     {
+        AudioSource t = Instantiate(audioSource, this.transform.position, Quaternion.identity);
+        Destroy(audioSource.gameObject);
+        audioSource = t;
         switch (currentState)
         {
             case State.Idle:

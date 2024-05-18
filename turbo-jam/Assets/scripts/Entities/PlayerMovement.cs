@@ -31,6 +31,10 @@ public class PlayerMovement : Entity
 
     public Animator playerAnim;
 
+    [SerializeField] AudioClip SFX_player_hurt;
+    [SerializeField] AudioClip SFX_player_death;
+    [SerializeField] AudioClip SFX_player_attack;
+
     private State currentState;
     private enum State{
         Idle,
@@ -128,6 +132,10 @@ public class PlayerMovement : Entity
     private void OnHitPerformed(InputAction.CallbackContext inputValue)
     {
         currentState = State.Attacking;
+
+
+        // SFX test
+        SFXManager.instance.SFXplayer(SFX_player_hurt, transform, 1f);
     }
 
     private void OnHitCanceled(InputAction.CallbackContext inputValue){}
