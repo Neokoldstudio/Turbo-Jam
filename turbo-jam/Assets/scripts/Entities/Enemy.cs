@@ -64,26 +64,6 @@ public class Enemy : Entity
         currentState = State.Move;
     }
 
-    private void Update()
-    {
-        if (player != null)
-        {
-            // Calculate direction to player
-            Vector3 directionToPlayer = player.position - transform.position;
-            direction = new Vector2(directionToPlayer.x, directionToPlayer.y).normalized;
-
-            // Check if player is within attack range
-            if (Vector3.Distance(transform.position, player.position) <= attackRange)
-            {
-                currentState = State.Attacking;
-            }
-            else
-            {
-                currentState = State.Move;
-            }
-        }
-    }
-
     private void Move()
     {
         Vector3 velocity = rb.velocity;
@@ -102,7 +82,29 @@ public class Enemy : Entity
         Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, direction);
         weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         weapon.transform.localScale = new Vector3(Mathf.Sign(direction.x), 1.0f, weapon.transform.localScale.z);
+
+
+        if (player != null)
+        {
+            // Calculate direction to player
+            Vector3 directionToPlayer = player.position - transform.position;
+            direction = new Vector2(directionToPlayer.x, directionToPlayer.y).normalized;
+
+            // Cast a ray in the direction the enemy is facing
+            RaycastHit hit;
+            Vector3 rayDirection = new Vector3(direction.x, 0, 0);
+
+            if (Physics.Raycast(transform.position, rayDirection, out hit, attackRange))
+            {
+                if (hit.collider.transform == player)
+                {
+                    print("attack !!!");
+                    currentState = State.Attacking;
+                }
+            }
+        }
     }
+
     private void Idle()
     {
         // Idle behavior here
@@ -126,16 +128,12 @@ public class Enemy : Entity
     public override void getHit(int Damage, Vector2 Direction)
     {
         // Handle getting hit
+        currentState = State.Idle;
+        print("ouch");
         rb.AddForce(new Vector2(Direction.x * hitForce, Direction.y * hitForce),ForceMode2D.Impulse);
 
-        // SFX plays 
-        AudioSource source = new AudioSource();
-        source.clip = SFX_hurt;
-        source.Play();
-        Destroy(source, SFX_hurt.length);
-
-
-        SFXManager.instance.SFXplayer(SFX_hurt, transform, 1f);
+        // hurt SFX plays 
+        
     }
 
     private void Attack()
@@ -144,15 +142,23 @@ public class Enemy : Entity
         if (weapon.GetComponent<weaponManager>().Attack(direction))
         {
             rb.AddForce(new Vector2(direction.x * hitForce, direction.y * hitForce),ForceMode2D.Impulse);
+
+            // attack sfx plays
+            // ...
         }
         currentState = State.Idle;
     }
 
     void FixedUpdate()
     {
-        AudioSource t = Instantiate(audioSource, this.transform.position, Quaternion.identity);
-        Destroy(audioSource.gameObject);
-        audioSource = t;
+        // update audioSource position
+        if (!audioSource.isPlaying)
+        {
+            AudioSource t = Instantiate(audioSource, this.transform.position, Quaternion.identity);
+            Destroy(audioSource.gameObject);
+            audioSource = t;
+        }
+
         switch (currentState)
         {
             case State.Idle:
