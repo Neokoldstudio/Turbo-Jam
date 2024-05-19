@@ -31,9 +31,14 @@ public class PlayerMovement : Entity
 
     public Animator playerAnim;
 
-    [SerializeField] AudioClip SFX_player_hurt;
-    [SerializeField] AudioClip SFX_player_death;
-    [SerializeField] AudioClip SFX_player_attack;
+    [SerializeField] AudioClip hurt;
+    [SerializeField] AudioClip death;
+    [SerializeField] AudioClip attack;
+    [SerializeField] AudioClip parry_proc;
+    [SerializeField] AudioClip parry_succesful;
+    [SerializeField] AudioClip[] sand_steps;
+
+    private AudioSource audioSource;
 
     private State currentState;
 
@@ -47,6 +52,11 @@ public class PlayerMovement : Entity
         Attacking,
         Buying,
         Dead
+    }
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Awake()
@@ -138,10 +148,6 @@ public class PlayerMovement : Entity
     private void OnHitPerformed(InputAction.CallbackContext inputValue)
     {
         currentState = State.Attacking;
-
-
-        // SFX test
-        SFXManager.instance.SFXplayer(SFX_player_hurt, transform, 1f);
     }
 
     private void OnHitCanceled(InputAction.CallbackContext inputValue){}
@@ -163,6 +169,11 @@ public class PlayerMovement : Entity
             print("parried");
             StopCoroutine(parryStun);
             currentState = State.Move;
+
+            // sfx succesful parry
+            audioSource.clip = parry_succesful;
+            audioSource.Play();
+
             TimeManager.Instance.SlowTimeSmooth(0.3f,0.1f,0.3f);
             IsParrying = false;
         }
@@ -174,6 +185,11 @@ public class PlayerMovement : Entity
         {
             Vector2 vec = new Vector2(lookDirection.x * hitForce, lookDirection.y * hitForce);
             rb.AddForce(vec, ForceMode2D.Impulse);
+
+            // SFX player attacking
+            // AudioSource source = Instantiate(audioSource, transform.position, Quaternion.identity);
+            audioSource.clip = attack;
+            audioSource.Play();
         }
         currentState = State.Move;
     }
@@ -184,6 +200,11 @@ public class PlayerMovement : Entity
         IsParrying = true;
         rb.velocity = Vector3.zero;
         currentState = State.Idle;
+
+        // parry sfx 
+        audioSource.clip = parry_proc;
+        audioSource.Play();
+
         StartCoroutine(parryStun);
     }
 
@@ -243,5 +264,4 @@ public class PlayerMovement : Entity
         IsParrying = false;
         currentState = State.Move;
     }
-
 }

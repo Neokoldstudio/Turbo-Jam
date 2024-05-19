@@ -41,10 +41,14 @@ public class Enemy : Entity
         Dead
     }
 
-    private void Awake()
+    private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+    }
 
+
+    private void Awake()
+    { 
         currentState = State.Idle;
         rb = GetComponent<Rigidbody2D>();
         spriteSize = sprite.transform.localScale.x;
@@ -154,10 +158,6 @@ public class Enemy : Entity
 
     void FixedUpdate()
     {
-        // update audioSource position
-        AudioSource t = Instantiate(audioSource, transform.position, Quaternion.identity);
-        audioSource = t;
-
         switch (currentState)
         {
             case State.Idle:
