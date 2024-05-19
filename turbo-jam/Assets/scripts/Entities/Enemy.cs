@@ -70,6 +70,26 @@ public class Enemy : Entity
         currentState = State.Move;
     }
 
+    private void Update()
+    {
+        if (player != null)
+        {
+            // Calculate direction to player
+            Vector3 directionToPlayer = player.position - transform.position;
+            direction = new Vector2(directionToPlayer.x, directionToPlayer.y).normalized;
+
+            // Check if player is within attack range
+            if (Vector3.Distance(transform.position, player.position) <= attackRange)
+            {
+                currentState = State.Attacking;
+            }
+            else
+            {
+                currentState = State.Move;
+            }
+        }
+    }
+
     private void Move()
     {
         Vector3 velocity = rb.velocity;
@@ -88,27 +108,6 @@ public class Enemy : Entity
         Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, direction);
         weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         weapon.transform.localScale = new Vector3(Mathf.Sign(direction.x), 1.0f, weapon.transform.localScale.z);
-
-
-        if (player != null)
-        {
-            // Calculate direction to player
-            Vector3 directionToPlayer = player.position - transform.position;
-            direction = new Vector2(directionToPlayer.x, directionToPlayer.y).normalized;
-
-            // Cast a ray in the direction the enemy is facing
-            RaycastHit hit;
-            Vector3 rayDirection = new Vector3(direction.x, 0, 0);
-
-            if (Physics.Raycast(transform.position, rayDirection, out hit, attackRange))
-            {
-                if (hit.collider.transform == player)
-                {
-                    print("attack !!!");
-                    currentState = State.Attacking;
-                }
-            }
-        }
     }
 
     private void Idle()
