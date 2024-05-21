@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d72525ea54017264a93075b17429023f
+guid: fb72bda49de5e75439bb6b00d873f420
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -105,127 +105,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SomeSprites_0
+      name: LightsArena_0
       rect:
         serializedVersion: 2
         x: 0
         y: 46
-        width: 37
-        height: 50
+        width: 23
+        height: 53
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46b3220d202533b47a3bb165d3137005
-      internalID: -259198248
+      spriteID: 6b5723aa66c0fa240b12ca5f322fb53f
+      internalID: -880942581
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SomeSprites_1
+      name: LightsArena_2
       rect:
         serializedVersion: 2
-        x: 47
-        y: 59
-        width: 55
-        height: 27
+        x: 30
+        y: 49
+        width: 101
+        height: 46
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce83dad1fefb7e7479dfcaa2d4ab932e
-      internalID: 2103336749
+      spriteID: c0fcaca2238c1604c80125c60e475d80
+      internalID: -811197070
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SomeSprites_2
+      name: LightsArena_3
       rect:
         serializedVersion: 2
-        x: 121
-        y: 32
-        width: 44
-        height: 54
+        x: 142
+        y: 44
+        width: 83
+        height: 46
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d02c4266d7e037499a7a299ba3734d2
-      internalID: -1783579480
+      spriteID: 87b5c3cee3c67264d8c6cc675200bef2
+      internalID: -1569655646
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SomeSprites_3
+      name: LightsArena_4
       rect:
         serializedVersion: 2
-        x: 5
+        x: 6
         y: 0
-        width: 9
-        height: 33
+        width: 84
+        height: 19
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c289aba36b97d7439b77ebee0fd9bc5
-      internalID: -305213451
+      spriteID: 209e2a23a573db54389ab2d565947b32
+      internalID: -709339087
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SomeSprites_4
+      name: LightsArena_5
       rect:
         serializedVersion: 2
-        x: 23
-        y: 4
-        width: 10
-        height: 21
+        x: 120
+        y: 0
+        width: 48
+        height: 19
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b9d5ab3d5807f34c8e7cc1823deac27
-      internalID: -669172520
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: SomeSprites_5
-      rect:
-        serializedVersion: 2
-        x: 39
-        y: 1
-        width: 28
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ba5aac9d0d5e0b34f9e562a25bfe7f99
-      internalID: -1499246007
+      spriteID: ceafa0e9951a6b148830decc67e1d591
+      internalID: -1838543197
       vertices: []
       indices: 
       edges: []
@@ -233,7 +212,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 37a3e2f091a2f004fa769d79481ea8f0
     internalID: 0
     vertices: []
     indices: 
@@ -241,12 +220,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SomeSprites_0: -259198248
-      SomeSprites_1: 2103336749
-      SomeSprites_2: -1783579480
-      SomeSprites_3: -305213451
-      SomeSprites_4: -669172520
-      SomeSprites_5: -1499246007
+      LightsArena_0: -880942581
+      LightsArena_1: 1351257373
+      LightsArena_2: -811197070
+      LightsArena_3: -1569655646
+      LightsArena_4: -709339087
+      LightsArena_5: -1838543197
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

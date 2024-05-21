@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b22e0395fbd3c74b9db54d7bd4f38b3, type: 3}
+  m_Name: BossPenguinArrives
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  dialogues:
+  - characterTalking: {fileID: 11400000, guid: c090798a897e0b343921d625f4d2d7e4, type: 2}
+    characterLines:
+    - What's up big guy
+    - Had a good nap?
+    - Remember that 200$ you "borrowed"? Well you're going to pay me back today!
+    - Luckily I run the business here, so do what you do best and pull up a good
+      show
+    - Now don't worry, I'm not a bad guy all right. You can have your precious thing
+      or whatever it is.
+  onEndTrigger: BossPenguinArrives

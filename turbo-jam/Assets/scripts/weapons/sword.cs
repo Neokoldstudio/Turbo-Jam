@@ -32,11 +32,21 @@ public class sword : Weapon
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.tag == "Armadillo")
+        {
+            //just for intro animation
+            AnimationController animController = AnimationController.Instance;
+            animController.KillArmadillo();
+            SlashVfx(animController.armadillo.gameObject.transform);
+            ImpactVfx(animController.armadillo.gameObject.transform);
+        }
         Entity entity = other.GetComponent<Entity>();
         if (entity != null)
         {
             // Add the entity to the list of entities hit
             entity.getHit(damagePoint, attackDir);
+            Rigidbody2D rb = entity.GetComponent<Rigidbody2D>(); 
+            rb.AddForce(new Vector2(attackDir.x * knockbackForce, attackDir.y * knockbackForce), ForceMode2D.Impulse);
             SlashVfx(entity.transform);
             ImpactVfx(entity.transform);
         }

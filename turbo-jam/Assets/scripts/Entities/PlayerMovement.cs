@@ -27,6 +27,7 @@ public class PlayerMovement : Entity
 
     private float spriteSize;
     public GameObject weapon;
+    public GameObject hands;
     public GameObject sprite;
 
     public Animator playerAnim;
@@ -43,6 +44,13 @@ public class PlayerMovement : Entity
     private State currentState;
 
     private bool IsParrying = false;
+
+    [HideInInspector]
+    public bool inEvent = false;
+    [HideInInspector]
+    public bool cantMove = false;
+    [HideInInspector]
+    public bool needParry = false;
 
     private IEnumerator parryStun;
     private enum State{
@@ -174,7 +182,7 @@ public class PlayerMovement : Entity
             audioSource.clip = parry_succesful;
             audioSource.Play();
 
-            TimeManager.Instance.SlowTimeSmooth(0.3f,0.1f,0.3f);
+            TimeManager.Instance.SlowTimeSmooth(0.5f,0.3f,0.5f);
             IsParrying = false;
         }
     }
@@ -196,6 +204,12 @@ public class PlayerMovement : Entity
 
     public override void parry()
     {
+        if (needParry)
+        {
+            needParry = false;
+            AnimationController.Instance.ParryKnife();
+        }
+
         weapon.GetComponent<weaponManager>().Parry();
         IsParrying = true;
         rb.velocity = Vector3.zero;
@@ -237,22 +251,26 @@ public class PlayerMovement : Entity
 
     void FixedUpdate()
     {
-        switch (currentState)
+        if (!inEvent)
         {
-            case State.Idle:
-                Idle();
-                break;
-            case State.Move:
-                Move();
-                break;
-            case State.Attacking:
-                hit();
-                break;
-            case State.Parrying:
-                parry();
-                break;
-            default:
-                break;
+            switch (currentState)
+            {
+                case State.Idle:
+                    Idle();
+                    break;
+                case State.Move:
+                    if(!cantMove)
+                        Move();
+                    break;
+                case State.Attacking:
+                    hit();
+                    break;
+                case State.Parrying:
+                    parry();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7774094664239263647}
   - component: {fileID: 7774094664239263646}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: spear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7774094664421065484}
   - component: {fileID: 7774094664421065483}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: hand2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7774094664556603992}
   - component: {fileID: 7774094664556603991}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: hand1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,7 +263,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7774094664671157082}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: 7 = LEFT / 0 = RIGHT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,7 +295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7774094665453001989}
   - component: {fileID: 7774094665453001988}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FeetAnim_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -357,7 +357,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 4
   m_Sprite: {fileID: -552442473, guid: 4c88b7359b8e5a64fbebc1d4acb5d1ae, type: 3}
   m_Color: {r: 0.85098046, g: 0.627451, b: 0.40000004, a: 1}
   m_FlipX: 0
@@ -379,7 +379,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7774094665487242141}
   - component: {fileID: 7774094665487242140}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FeetAnim_7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -441,7 +441,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 6
   m_Sprite: {fileID: -1766094978, guid: 4c88b7359b8e5a64fbebc1d4acb5d1ae, type: 3}
   m_Color: {r: 0.85098046, g: 0.627451, b: 0.40000004, a: 1}
   m_FlipX: 0
@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 7774094665553105095}
   - component: {fileID: 7774094665553105096}
   - component: {fileID: 7774094665553105097}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -529,7 +529,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 401646632, guid: bfe366d56a043b348b7fabc1c8fa5d29, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -572,7 +572,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7774094665611836901}
   - component: {fileID: 7774094665611836900}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -627,7 +627,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7774094665848829150}
   - component: {fileID: 7774094665848829149}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -672,7 +672,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7774094666375470311}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Austrich
   m_TagString: Untagged
   m_Icon: {fileID: 0}

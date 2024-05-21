@@ -55,6 +55,7 @@ SpriteAtlas:
   - {fileID: 1986445773, guid: cf827484e350ca34b8759613b79b1230, type: 3}
   - {fileID: 1131183549, guid: cf827484e350ca34b8759613b79b1230, type: 3}
   - {fileID: -402246934, guid: cf827484e350ca34b8759613b79b1230, type: 3}
+  - {fileID: 1388261915, guid: cf827484e350ca34b8759613b79b1230, type: 3}
   - {fileID: -1157800, guid: cf827484e350ca34b8759613b79b1230, type: 3}
   - {fileID: -562783784, guid: cf827484e350ca34b8759613b79b1230, type: 3}
   - {fileID: 633262514, guid: cf827484e350ca34b8759613b79b1230, type: 3}
@@ -74,7 +75,9 @@ SpriteAtlas:
   - {fileID: 1772359881, guid: cf827484e350ca34b8759613b79b1230, type: 3}
   - {fileID: 555289300, guid: cf827484e350ca34b8759613b79b1230, type: 3}
   - {fileID: -236201337, guid: cf827484e350ca34b8759613b79b1230, type: 3}
+  - {fileID: -629365448, guid: cf827484e350ca34b8759613b79b1230, type: 3}
   - {fileID: -904168054, guid: cf827484e350ca34b8759613b79b1230, type: 3}
+  - {fileID: 821658184, guid: cf827484e350ca34b8759613b79b1230, type: 3}
   - {fileID: -1649054065, guid: cf827484e350ca34b8759613b79b1230, type: 3}
   - {fileID: 1327550937, guid: cf827484e350ca34b8759613b79b1230, type: 3}
   - {fileID: 11963123, guid: cf827484e350ca34b8759613b79b1230, type: 3}
@@ -95,6 +98,7 @@ SpriteAtlas:
   - TileSetVrai_33
   - TileSetVrai_60
   - TileSetVrai_61
+  - TileSetVrai_19
   - TileSetVrai_18
   - TileSetVrai_73
   - TileSetVrai_72
@@ -114,7 +118,9 @@ SpriteAtlas:
   - TileSetVrai_57
   - TileSetVrai_20
   - TileSetVrai_59
+  - TileSetVrai_21
   - TileSetVrai_58
+  - TileSetVrai_22
   - TileSetVrai_48
   - TileSetVrai_46
   - TileSetVrai_44

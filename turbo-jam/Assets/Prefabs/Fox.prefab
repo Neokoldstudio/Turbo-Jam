@@ -759,9 +759,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 0
   rb: {fileID: 4375652598000368201}
-  SFX_hit: {fileID: 0}
-  SFX_death: {fileID: 0}
-  SFX_attack: {fileID: 0}
   maxSpeed: 1
   attackRange: 2
   hitForce: 5
@@ -769,6 +766,9 @@ MonoBehaviour:
   weapon: {fileID: 4391137882173342962}
   sprite: {fileID: 4391137880657428185}
   enemyAnim: {fileID: 4391137880657428190}
+  SFX_hurt: {fileID: 0}
+  SFX_death: {fileID: 0}
+  SFX_attack: {fileID: 0}
 --- !u!1001 &6323541954034108610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -776,6 +776,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4391137882173342963}
     m_Modifications:
+    - target: {fileID: 7438472312651848502, guid: bb5023e1e695130c8b79d55837bbf309,
+        type: 3}
+      propertyPath: knockbackForce
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7835480472150082924, guid: bb5023e1e695130c8b79d55837bbf309,
         type: 3}
       propertyPath: m_Name

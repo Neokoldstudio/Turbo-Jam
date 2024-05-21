@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CanvasAnimation : MonoBehaviour
 {
-    Animator anim;
+    public Animator anim;
 
     private void OnValidate()
     {
