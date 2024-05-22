@@ -7,7 +7,6 @@ using Sirenix.OdinInspector;
 [CreateAssetMenu(menuName = "Custom/DialogueSystem/Dialogue", fileName = "New Dialogue")]
 public class DialogueSO : SerializedScriptableObject
 {
-    
     public Dialogue[] dialogues;
 
     public string onEndTrigger;

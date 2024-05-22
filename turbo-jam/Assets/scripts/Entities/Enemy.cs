@@ -26,10 +26,7 @@ public class Enemy : Entity
     public GameObject sprite;
 
     public Animator enemyAnim;
-
-    [SerializeField] AudioClip SFX_hurt;
-    [SerializeField] AudioClip SFX_death;
-    [SerializeField] AudioClip SFX_attack;
+    public SfxManager sfxManager;
 
     private AudioSource audioSource;
 
@@ -43,7 +40,6 @@ public class Enemy : Entity
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -51,6 +47,8 @@ public class Enemy : Entity
     { 
         currentState = State.Idle;
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
+        sfxManager = GetComponent<SfxManager>();
         spriteSize = sprite.transform.localScale.x;
 
         // Find the player by tag
@@ -138,8 +136,7 @@ public class Enemy : Entity
         rb.AddForce(new Vector2(Direction.x * hitForce, Direction.y * hitForce),ForceMode2D.Impulse);
 
         // hurt SFX plays 
-        audioSource.clip = SFX_hurt;
-        audioSource.Play();
+        sfxManager.PlaySound("hurt");
     }
 
     private void Attack()

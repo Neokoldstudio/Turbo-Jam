@@ -32,14 +32,7 @@ public class PlayerMovement : Entity
 
     public Animator playerAnim;
 
-    [SerializeField] AudioClip hurt;
-    [SerializeField] AudioClip death;
-    [SerializeField] AudioClip attack;
-    [SerializeField] AudioClip parry_proc;
-    [SerializeField] AudioClip parry_succesful;
-    [SerializeField] AudioClip[] sand_steps;
-
-    private AudioSource audioSource;
+    public SfxManager sfxManager;
 
     private State currentState;
 
@@ -60,11 +53,6 @@ public class PlayerMovement : Entity
         Attacking,
         Buying,
         Dead
-    }
-
-    private void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
     }
 
     private void Awake()
@@ -179,8 +167,7 @@ public class PlayerMovement : Entity
             currentState = State.Move;
 
             // sfx succesful parry
-            audioSource.clip = parry_succesful;
-            audioSource.Play();
+            sfxManager.PlaySound("parry_succesful");
 
             TimeManager.Instance.SlowTimeSmooth(0.5f,0.3f,0.5f);
             IsParrying = false;
@@ -196,8 +183,7 @@ public class PlayerMovement : Entity
 
             // SFX player attacking
             // AudioSource source = Instantiate(audioSource, transform.position, Quaternion.identity);
-            audioSource.clip = attack;
-            audioSource.Play();
+            sfxManager.PlaySound("attack");
         }
         currentState = State.Move;
     }
@@ -216,8 +202,7 @@ public class PlayerMovement : Entity
         currentState = State.Idle;
 
         // parry sfx 
-        audioSource.clip = parry_proc;
-        audioSource.Play();
+        sfxManager.PlaySound("parry_proc");
 
         StartCoroutine(parryStun);
     }

@@ -6,12 +6,10 @@ public class sword : Weapon
 {
 
     public Animator sword_animation;
+    public VfxManager vfxManager;
 
     [SerializeField, Range(0f, 10f)]
     public float vfxRange;
-    public GameObject swingVfx;
-    public GameObject impactVfx;
-    public GameObject slashVfx;
     private Vector2 attackDir;
 
     public override bool Attack(Vector2 direction)
@@ -57,24 +55,34 @@ public class sword : Weapon
 
     public void SwingVfx()
     {
-        GameObject swing = Instantiate(swingVfx);
-        swing.transform.position = new Vector3(transform.position.x + attackDir.x * vfxRange, transform.position.y + attackDir.y * vfxRange, transform.position.z);
-        swing.transform.rotation = Quaternion.LookRotation(Vector3.forward, attackDir);
-        swing.transform.rotation *= Quaternion.Euler(0, 0, 90);//rotate 90 degrees to align the swing effect with the weapon
-        swing.transform.localScale = transform.localScale;
+        int swing = vfxManager.TriggerVfx(VfxType.Swing);
+        if (swing != -1)
+        {
+
+            vfxManager.currentVfx[swing].transform.position = new Vector3(transform.position.x + attackDir.x * vfxRange, transform.position.y + attackDir.y * vfxRange, transform.position.z);
+            vfxManager.currentVfx[swing].transform.rotation = Quaternion.LookRotation(Vector3.forward, attackDir);
+            vfxManager.currentVfx[swing].transform.rotation *= Quaternion.Euler(0, 0, 90);//rotate 90 degrees to align the swing effect with the weapon
+            vfxManager.currentVfx[swing].transform.localScale = transform.localScale;
+        }
     }
 
     public void ImpactVfx(Transform entityTransform)
     {
-        GameObject impact = Instantiate(impactVfx);
-        impact.transform.position = entityTransform.position;
+        int impact = vfxManager.TriggerVfx(VfxType.Impact);
+        if(impact != -1)
+        {
+            vfxManager.currentVfx[impact].transform.position = entityTransform.position;
+        }
     }
 
     public void SlashVfx(Transform entityTransform)
     {
-        GameObject slash = Instantiate(slashVfx);
-        slash.transform.position = entityTransform.position;
-        slash.transform.rotation *= Quaternion.Euler(0,0,Random.Range(-180.0f, 180.0f));
+        int slash = vfxManager.TriggerVfx(VfxType.Slash);
+        if(slash != -1)
+        {
+            vfxManager.currentVfx[slash].transform.position = entityTransform.position;
+            vfxManager.currentVfx[slash].transform.rotation *= Quaternion.Euler(0, 0, Random.Range(-180.0f, 180.0f));
+        }
     }
 
     public void Shake()
