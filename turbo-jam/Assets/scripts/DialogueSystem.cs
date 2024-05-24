@@ -9,6 +9,8 @@ public class DialogueSystem : MonoBehaviour
 {
     public AnimationController animController;
 
+    public SfxManager sfxManager;
+
     public Image dialogueBox;
     public TextMeshProUGUI characterText;
     public TextMeshProUGUI dialogueText;
@@ -125,6 +127,9 @@ public class DialogueSystem : MonoBehaviour
             dialogueText.maxVisibleCharacters = visibleCount; // How many characters should TextMeshPro display?
 
             counter += 1; //Increase by one then wait
+
+            if(visibleCount%2 == 0)
+                sfxManager.PlaySound("noise");
 
             if (Input.GetKey(KeyCode.Space))
             {
