@@ -662,6 +662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3167c1b848e6ab57996f706aa13b73c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canRotate: 1
 --- !u!1 &4391137882187990458
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,9 +767,7 @@ MonoBehaviour:
   weapon: {fileID: 4391137882173342962}
   sprite: {fileID: 4391137880657428185}
   enemyAnim: {fileID: 4391137880657428190}
-  SFX_hurt: {fileID: 0}
-  SFX_death: {fileID: 0}
-  SFX_attack: {fileID: 0}
+  sfxManager: {fileID: 0}
 --- !u!1001 &6323541954034108610
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -776,6 +775,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4391137882173342963}
     m_Modifications:
+    - target: {fileID: 5470940118997107011, guid: bb5023e1e695130c8b79d55837bbf309,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7438472312651848502, guid: bb5023e1e695130c8b79d55837bbf309,
         type: 3}
       propertyPath: knockbackForce

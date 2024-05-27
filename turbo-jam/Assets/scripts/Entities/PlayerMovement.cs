@@ -14,21 +14,23 @@ public class PlayerMovement : Entity
     [SerializeField, Range(0f, 100f)]
     private float MaxSpeed = 10f;
     private float acceleration;
+    [SerializeField, Range(0f, 10f)]
+    private float maxLookRange;
 
     [SerializeField, Range(0f, 100f)]
     private float accelerationBuildUp = 30f;
 
     [SerializeField, Range(0f, 100f)]
     private float accelerationFalloff = 60f;
-    private float rotationSpeed = 10f;
 
     [SerializeField, Range(0f, 100f)]
     private float hitForce = 5f;
 
     private float spriteSize;
-    public GameObject weapon;
+    public weaponManager weapon;
     public GameObject hands;
     public GameObject sprite;
+    public GameObject camMidpoint;
 
     public Animator playerAnim;
 
@@ -126,6 +128,11 @@ public class PlayerMovement : Entity
         // Convert mouse position to world coordinates
         Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, Camera.main.nearClipPlane));
 
+        if(camMidpoint != null)
+            camMidpoint.gameObject.transform.position = Vector3.ClampMagnitude((worldMousePosition - transform.position)/2, maxLookRange) + transform.position;
+
+
+
         // Calculate direction from player position to mouse position
         lookDirection = (worldMousePosition - transform.position).normalized;
     }
@@ -167,6 +174,8 @@ public class PlayerMovement : Entity
             // sfx succesful parry
             sfxManager.PlaySound("parry_succesful");
 
+
+            weapon.Sparks();
             TimeManager.Instance.SlowTimeSmooth(0.5f, 0.3f, 0.5f);
             IsParrying = false;
         }
@@ -212,6 +221,12 @@ public class PlayerMovement : Entity
 
     private void Move()
     {
+        if (Mathf.Sign(sprite.transform.localScale.x) != Mathf.Sign(Direction.x) && Direction.x != 0.0f)
+            sprite.transform.localScale = new Vector3(Mathf.Sign(Direction.x) * spriteSize, sprite.transform.localScale.y, sprite.transform.localScale.z);
+    }
+
+    void UpdateVelocity()
+    {
         Vector3 velocity = rb.velocity;
 
         float maxSpeedChange = acceleration * Time.deltaTime;
@@ -220,19 +235,6 @@ public class PlayerMovement : Entity
         velocity.y = Mathf.MoveTowards(velocity.y, Direction.y * MaxSpeed, maxSpeedChange);
 
         rb.velocity = velocity;
-
-        if (Mathf.Sign(sprite.transform.localScale.x) != Mathf.Sign(Direction.x) && Direction.x != 0.0f)
-            sprite.transform.localScale = new Vector3(Mathf.Sign(Direction.x) * spriteSize, sprite.transform.localScale.y, sprite.transform.localScale.z);
-
-        //rotate sword
-        Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, lookDirection);
-        weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        weapon.transform.localScale = new Vector3(Mathf.Sign(lookDirection.x), 1.0f, weapon.transform.localScale.z);
-    }
-
-    void UpdateVelocity()
-    {
-
     }
 
     #endregion
@@ -247,7 +249,6 @@ public class PlayerMovement : Entity
                     Idle();
                     break;
                 case State.Move:
-                    if(!cantMove)
                         Move();
                     break;
                 case State.Attacking:
@@ -259,8 +260,9 @@ public class PlayerMovement : Entity
                 default:
                     break;
             }
+            weapon.UpdateRotation(lookDirection);
         }
-        
+
         //rotatesword()
         UpdateVelocity();
     }

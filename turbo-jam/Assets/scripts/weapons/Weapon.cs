@@ -15,9 +15,6 @@ public abstract class Weapon : MonoBehaviour
 
     [SerializeField, Range(0f, 100f)]
     public float knockbackForce;
-
-    [SerializeField] AudioClip SFX_swing;
-
     private bool IsAttacking{get;set;}
     public LayerMask enemyLayer;
     public abstract bool Attack(Vector2 direction);

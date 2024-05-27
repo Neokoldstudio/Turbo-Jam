@@ -28,9 +28,9 @@ public class sword : Weapon
         sword_animation.SetTrigger("parry");
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void OnHit(Entity target)
     {
-        if (other.tag == "Armadillo")
+        if (target.tag == "Armadillo")
         {
             //just for intro animation
             AnimationController animController = AnimationController.Instance;
@@ -38,18 +38,17 @@ public class sword : Weapon
             SlashVfx(animController.armadillo.gameObject.transform);
             ImpactVfx(animController.armadillo.gameObject.transform);
         }
-        Entity entity = other.GetComponent<Entity>();
-        if (entity != null)
+
+        if (target != null)
         {
             // Add the entity to the list of entities hit
-            entity.getHit(damagePoint, attackDir);
-            Rigidbody2D rb = entity.GetComponent<Rigidbody2D>(); 
+            target.getHit(damagePoint, attackDir);
+            Rigidbody2D rb = target.GetComponent<Rigidbody2D>();
             rb.AddForce(new Vector2(attackDir.x * knockbackForce, attackDir.y * knockbackForce), ForceMode2D.Impulse);
-            SlashVfx(entity.transform);
-            ImpactVfx(entity.transform);
+            SlashVfx(target.transform);
+            ImpactVfx(target.transform);
         }
     }
-
 
     #region VFX
 
@@ -62,7 +61,6 @@ public class sword : Weapon
             vfxManager.currentVfx[swing].transform.position = new Vector3(transform.position.x + attackDir.x * vfxRange, transform.position.y + attackDir.y * vfxRange, transform.position.z);
             vfxManager.currentVfx[swing].transform.rotation = Quaternion.LookRotation(Vector3.forward, attackDir);
             vfxManager.currentVfx[swing].transform.rotation *= Quaternion.Euler(0, 0, 90);//rotate 90 degrees to align the swing effect with the weapon
-            vfxManager.currentVfx[swing].transform.localScale = transform.localScale;
         }
     }
 
@@ -85,9 +83,9 @@ public class sword : Weapon
         }
     }
 
-    public void Shake()
+    public void SparkVfx()
     {
-        CinemachineShake.Instance.Shake(5f, .1f);
+        int spark = vfxManager.TriggerVfx(VfxType.Sparks);
     }
     #endregion
 }

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Armadillo
+  - Enemy
+  - Gibs
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - Ennemy
   - Invisible
   - Map
-  - 
+  - Gibs
   - 
   - 
   - 
@@ -39,15 +41,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
+  - name: Vfx
+    uniqueID: 3280528085
     locked: 0
   - name: Background
     uniqueID: 831318891
     locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
   - name: Player
     uniqueID: 2100118129
-    locked: 0
-  - name: Vfx
-    uniqueID: 3280528085
     locked: 0

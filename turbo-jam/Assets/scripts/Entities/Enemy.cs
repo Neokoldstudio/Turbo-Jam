@@ -22,13 +22,15 @@ public class Enemy : Entity
     private float rotationSpeed = 5f;
 
     private float spriteSize;
-    public GameObject weapon;
+    public weaponManager weapon;
     public GameObject sprite;
 
     public Animator enemyAnim;
     public SfxManager sfxManager;
 
     private AudioSource audioSource;
+
+    bool dead = false;
 
     private State currentState;
     private enum State{
@@ -75,6 +77,7 @@ public class Enemy : Entity
             // Calculate direction to player
             Vector3 directionToPlayer = player.position - transform.position;
             direction = new Vector2(directionToPlayer.x, directionToPlayer.y).normalized;
+            lookDirection = direction;
 
             // Check if player is within attack range
             if (Vector3.Distance(transform.position, player.position) <= attackRange)
@@ -90,27 +93,22 @@ public class Enemy : Entity
 
     private void Move()
     {
-        Vector3 velocity = rb.velocity;
-
-        float maxSpeedChange = acceleration * Time.deltaTime;
-
-        velocity.x = Mathf.MoveTowards(velocity.x, direction.x * maxSpeed, maxSpeedChange);
-        velocity.y = Mathf.MoveTowards(velocity.y, direction.y * maxSpeed, maxSpeedChange);
-
-        rb.velocity = velocity;
+        if (!enemyAnim.GetBool("run"))
+        {
+            enemyAnim.SetBool("run", true);
+        }
 
         if (Mathf.Sign(sprite.transform.localScale.x) != Mathf.Sign(direction.x) && direction.x != 0.0f)
             sprite.transform.localScale = new Vector3(Mathf.Sign(direction.x) * spriteSize, sprite.transform.localScale.y, sprite.transform.localScale.z);
-
-        // Rotate weapon
-        Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, direction);
-        weapon.transform.rotation = Quaternion.Slerp(weapon.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        weapon.transform.localScale = new Vector3(Mathf.Sign(direction.x), 1.0f, weapon.transform.localScale.z);
     }
 
     private void Idle()
     {
-        // Idle behavior here
+        // Idle behavior hereif
+        if(!enemyAnim.GetBool("run"))
+        {
+            enemyAnim.SetBool("run", false);
+        }
         StartCoroutine(AttackStun());
     }
 
@@ -132,7 +130,14 @@ public class Enemy : Entity
     {
         // Handle getting hit
         currentState = State.Idle;
+        maxSpeed = 0;
         print("ouch");
+        enemyAnim.SetTrigger("dead");
+        TimeManager.Instance.SlowTimeSmooth(.01f, .2f, .01f);
+        weapon.GetComponent<Animator>().SetTrigger("dead");
+        dead = true;
+        GetComponent<Collider2D>().isTrigger = true;
+
         rb.AddForce(new Vector2(Direction.x * hitForce, Direction.y * hitForce),ForceMode2D.Impulse);
 
         // hurt SFX plays 
@@ -152,22 +157,39 @@ public class Enemy : Entity
         currentState = State.Idle;
     }
 
+    void UpdateVelocity()
+    {
+        Vector3 velocity = rb.velocity;
+
+        float maxSpeedChange = acceleration * Time.deltaTime;
+
+        velocity.x = Mathf.MoveTowards(velocity.x, direction.x * maxSpeed, maxSpeedChange);
+        velocity.y = Mathf.MoveTowards(velocity.y, direction.y * maxSpeed, maxSpeedChange);
+
+        rb.velocity = velocity;
+    }
+
     void FixedUpdate()
     {
-        switch (currentState)
+        if (!dead)
         {
-            case State.Idle:
-                Idle();
-                break;
-            case State.Move:
-                Move();
-                break;
-            case State.Attacking:
-                Attack();
-                break;
-            default:
-                break;
+            switch (currentState)
+            {
+                case State.Idle:
+                    Idle();
+                    break;
+                case State.Move:
+                    Move();
+                    break;
+                case State.Attacking:
+                    Attack();
+                    break;
+                default:
+                    break;
+            }
+            weapon.UpdateRotation(lookDirection);
         }
+        UpdateVelocity();
     }
 
     //Coroutines

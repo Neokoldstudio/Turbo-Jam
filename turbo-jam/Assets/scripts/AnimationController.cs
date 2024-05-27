@@ -63,6 +63,7 @@ public class AnimationController : MonoBehaviour
     }
     public void ParryKnife()
     {
+        TimeManager.Instance.SlowTimeSmooth(0.1f, 0.1f, 0.1f);
         boss.SetTrigger("Parry");
         bossHands.SetTrigger("Parry");
         anim.SetTrigger("Parry");
@@ -75,7 +76,7 @@ public class AnimationController : MonoBehaviour
 
     public void PickSword()
     {
-        player.weapon.SetActive(true);
+        player.weapon.gameObject.SetActive(true);
         player.hands.SetActive(false);
         sand.SetActive(false);
         player.cantMove = true;

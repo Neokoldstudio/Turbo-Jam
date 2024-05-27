@@ -2955,8 +2955,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.026449978, y: -0.034350008, z: 0}
-    m_Extent: {x: 0.59375, y: 0.53575003, z: 0}
+    m_Center: {x: -0.023699999, y: -0.032099992, z: 0}
+    m_Extent: {x: 0.5933, y: 0.53779995, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -3037,8 +3037,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.026050001, y: -0.028999984, z: 0}
-    m_Extent: {x: 0.59025, y: 0.537, z: 0}
+    m_Center: {x: -0.026800007, y: -0.02760002, z: 0}
+    m_Extent: {x: 0.5856, y: 0.5322, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -3501,8 +3501,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.08780001, y: -0.12574999, z: 0}
-    m_Extent: {x: 0.5165, y: 0.60265, z: 0}
+    m_Center: {x: -0.087650016, y: -0.12555, z: 0}
+    m_Extent: {x: 0.51235, y: 0.59865, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -3862,6 +3862,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1244575702 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3007923039202187838, guid: fdb67c5a6d699604abe9e8a0de81ee7d,
+    type: 3}
+  m_PrefabInstance: {fileID: 7222029300591485666}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3167c1b848e6ab57996f706aa13b73c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1250101368
 GameObject:
   m_ObjectHideFlags: 0
@@ -3961,7 +3973,7 @@ PrefabInstance:
     - target: {fileID: 7016249764806305233, guid: 1cff800153635114ca9072a87805d6ab,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7016249764806305234, guid: 1cff800153635114ca9072a87805d6ab,
         type: 3}
@@ -3971,12 +3983,12 @@ PrefabInstance:
     - target: {fileID: 7016249764806305234, guid: 1cff800153635114ca9072a87805d6ab,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.088
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7016249764806305234, guid: 1cff800153635114ca9072a87805d6ab,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.059000015
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7016249764806305234, guid: 1cff800153635114ca9072a87805d6ab,
         type: 3}
@@ -5364,8 +5376,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.0899, y: -0.12505001, z: 0}
-    m_Extent: {x: 0.5179, y: 0.60285, z: 0}
+    m_Center: {x: -0.090249985, y: -0.12894998, z: 0}
+    m_Extent: {x: 0.51275, y: 0.59575, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -5849,7 +5861,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 831318891
-  m_SortingLayer: 1
+  m_SortingLayer: -1
   m_SortingOrder: 10
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -28783,6 +28795,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2294941057329831142, guid: fdb67c5a6d699604abe9e8a0de81ee7d,
         type: 3}
+      propertyPath: weapon
+      value: 
+      objectReference: {fileID: 1244575702}
+    - target: {fileID: 2294941057329831142, guid: fdb67c5a6d699604abe9e8a0de81ee7d,
+        type: 3}
       propertyPath: accelerationBuildUp
       value: 100
       objectReference: {fileID: 0}
@@ -28804,6 +28821,16 @@ PrefabInstance:
     - target: {fileID: 2294941058954028675, guid: fdb67c5a6d699604abe9e8a0de81ee7d,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3007923039202187838, guid: fdb67c5a6d699604abe9e8a0de81ee7d,
+        type: 3}
+      propertyPath: canRotate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5217056491831935369, guid: fdb67c5a6d699604abe9e8a0de81ee7d,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5313450050332482054, guid: fdb67c5a6d699604abe9e8a0de81ee7d,
@@ -28832,6 +28859,11 @@ PrefabInstance:
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
       value: 
       objectReference: {fileID: 269350395}
+    - target: {fileID: 5519570409978291695, guid: fdb67c5a6d699604abe9e8a0de81ee7d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7255537705113181180, guid: fdb67c5a6d699604abe9e8a0de81ee7d,
         type: 3}
       propertyPath: attackRange
