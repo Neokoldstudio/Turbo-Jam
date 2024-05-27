@@ -48,7 +48,8 @@ public class PlayerMovement : Entity
     public bool needParry = false;
 
     private IEnumerator parryStun;
-    private enum State {
+    private enum State
+    {
         Idle,
         Move,
         Parrying,
@@ -128,8 +129,8 @@ public class PlayerMovement : Entity
         // Convert mouse position to world coordinates
         Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, Camera.main.nearClipPlane));
 
-        if(camMidpoint != null)
-            camMidpoint.gameObject.transform.position = Vector3.ClampMagnitude((worldMousePosition - transform.position)/2, maxLookRange) + transform.position;
+        if (camMidpoint != null)
+            camMidpoint.gameObject.transform.position = Vector3.ClampMagnitude((worldMousePosition - transform.position) / 2, maxLookRange) + transform.position;
 
 
 
@@ -179,6 +180,10 @@ public class PlayerMovement : Entity
             TimeManager.Instance.SlowTimeSmooth(0.5f, 0.3f, 0.5f);
             IsParrying = false;
         }
+        else
+        {
+
+        }
     }
 
     public override void hit()
@@ -192,6 +197,7 @@ public class PlayerMovement : Entity
             // AudioSource source = Instantiate(audioSource, transform.position, Quaternion.identity);
             sfxManager.PlaySound("attack");
         }
+        IsParrying = false;
         currentState = State.Move;
     }
 
@@ -203,15 +209,18 @@ public class PlayerMovement : Entity
             AnimationController.Instance.ParryKnife();
         }
 
-        weapon.GetComponent<weaponManager>().Parry();
-        IsParrying = true;
-        rb.velocity = Vector3.zero;
-        currentState = State.Idle;
+        if (!IsParrying)
+        {
+            weapon.GetComponent<weaponManager>().Parry();
+            IsParrying = true;
+            rb.velocity = Vector3.zero;
+            currentState = State.Idle;
 
-        // parry sfx 
-        sfxManager.PlaySound("parry_proc");
+            // parry sfx 
+            sfxManager.PlaySound("parry_proc");
 
-        StartCoroutine(parryStun);
+            StartCoroutine(ParryStun());
+        }
     }
 
     private void Idle()
@@ -221,8 +230,8 @@ public class PlayerMovement : Entity
 
     private void Move()
     {
-        if (Mathf.Sign(sprite.transform.localScale.x) != Mathf.Sign(Direction.x) && Direction.x != 0.0f)
-            sprite.transform.localScale = new Vector3(Mathf.Sign(Direction.x) * spriteSize, sprite.transform.localScale.y, sprite.transform.localScale.z);
+        if (Mathf.Sign(sprite.transform.localScale.x) != Mathf.Sign(lookDirection.x) && lookDirection.x != 0.0f)
+            sprite.transform.localScale = new Vector3(Mathf.Sign(lookDirection.x) * spriteSize, sprite.transform.localScale.y, sprite.transform.localScale.z);
     }
 
     void UpdateVelocity()
@@ -249,7 +258,7 @@ public class PlayerMovement : Entity
                     Idle();
                     break;
                 case State.Move:
-                        Move();
+                    Move();
                     break;
                 case State.Attacking:
                     hit();
@@ -274,5 +283,6 @@ public class PlayerMovement : Entity
         yield return new WaitForSeconds(weapon.GetComponent<weaponManager>().getParryStun());
         IsParrying = false;
         currentState = State.Move;
+        yield return null;
     }
 }
