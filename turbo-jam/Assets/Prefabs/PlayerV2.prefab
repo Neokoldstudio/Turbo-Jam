@@ -404,7 +404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damagePoint: 266
   attackRange: 4
-  parryStun: 0.5
+  parryStun: 0.35
   knockbackForce: 10.4
   enemyLayer:
     serializedVersion: 2
@@ -1108,6 +1108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitbox: {fileID: 175297736900008115}
   canRotate: 1
+  perfectParry: 0
 --- !u!95 &3250741390196579056
 Animator:
   serializedVersion: 5
@@ -1494,12 +1495,14 @@ MonoBehaviour:
   healthPoints: 0
   rb: {fileID: 3479444652858116385}
   MaxSpeed: 1
+  maxLookRange: 0
   accelerationBuildUp: 20
   accelerationFalloff: 100
   hitForce: 20
   weapon: {fileID: 5219503881171875051}
   hands: {fileID: 3262956036979084090}
   sprite: {fileID: 9081624693171058843}
+  camMidpoint: {fileID: 0}
   playerAnim: {fileID: 9081624693171058844}
   sfxManager: {fileID: 602905849693177881}
   inEvent: 0

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    public static TimeManager Instance{get; private set;}
-
+    public static TimeManager Instance { get; private set; }
     void Awake()
     {
         Instance = this;
@@ -46,5 +45,6 @@ public class TimeManager : MonoBehaviour
             yield return null;
         }
         Time.timeScale = 1f;
+        yield return null;
     }
 }

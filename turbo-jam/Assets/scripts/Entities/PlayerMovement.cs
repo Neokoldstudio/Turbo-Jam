@@ -177,12 +177,11 @@ public class PlayerMovement : Entity
 
 
             weapon.Sparks();
-            TimeManager.Instance.SlowTimeSmooth(0.5f, 0.3f, 0.5f);
+            if (weapon.GetComponent<weaponManager>().getPerfectParryState())
+            {
+                TimeManager.Instance.SlowTimeSmooth(0.5f, 0.3f, 0.5f);
+            }
             IsParrying = false;
-        }
-        else
-        {
-
         }
     }
 

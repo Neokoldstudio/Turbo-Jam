@@ -6,8 +6,8 @@ public class weaponManager : MonoBehaviour
 {
     private Weapon weapon;
     public GameObject hitbox;
-
     public bool canRotate = true;
+    public bool perfectParry = false;
     private float rotationSpeed = 10f;
 
     private void Start()
@@ -79,5 +79,22 @@ public class weaponManager : MonoBehaviour
             Debug.LogWarning("Weapon reference is not set!");
             return 1f;
         }
+    }
+
+    public bool getPerfectParryState()
+    {
+        return perfectParry;
+    }
+
+    public void SetPerfectParryTrue()
+    {
+        print(perfectParry);
+        perfectParry = true;
+    }
+
+    public void SetPerfectParryFalse()
+    {
+        print(perfectParry);
+        perfectParry = false;
     }
 }

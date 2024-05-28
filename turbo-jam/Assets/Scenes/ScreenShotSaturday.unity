@@ -817,36 +817,26 @@ PrefabInstance:
         type: 3}
       propertyPath: serializationData.Prefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7048464581673906361, guid: 85e2115e33caa8347982a309e1ccc9b1,
+        type: 3}
     - target: {fileID: 7048464581673906361, guid: 85e2115e33caa8347982a309e1ccc9b1,
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7048464581673906361, guid: 85e2115e33caa8347982a309e1ccc9b1,
         type: 3}
       propertyPath: serializationData.PrefabModifications.Array.data[0]
-      value: '"path":"usedVfx.{4es}.[0].gO","value":$eref:0'
-      objectReference: {fileID: 0}
-    - target: {fileID: 7048464581673906361, guid: 85e2115e33caa8347982a309e1ccc9b1,
-        type: 3}
-      propertyPath: serializationData.PrefabModifications.Array.data[1]
-      value: '"path":"usedVfx.{4es}.[0].parent","value":$eref:1'
+      value: '"path":"usedVfx.{4es}.[0].parent","value":$eref:0'
       objectReference: {fileID: 0}
     - target: {fileID: 7048464581673906361, guid: 85e2115e33caa8347982a309e1ccc9b1,
         type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7048464581673906361, guid: 85e2115e33caa8347982a309e1ccc9b1,
         type: 3}
       propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[0]
-      value: 
-      objectReference: {fileID: 401414650964265215, guid: aae3ac47e53049e44a07df5022d98cbb,
-        type: 3}
-    - target: {fileID: 7048464581673906361, guid: 85e2115e33caa8347982a309e1ccc9b1,
-        type: 3}
-      propertyPath: serializationData.PrefabModificationsReferencedUnityObjects.Array.data[1]
       value: 
       objectReference: {fileID: 127820070}
     - target: {fileID: 9081624692521977945, guid: 85e2115e33caa8347982a309e1ccc9b1,
@@ -2708,8 +2698,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.028649986, y: -0.029300004, z: 0}
-    m_Extent: {x: 0.60025, y: 0.53830004, z: 0}
+    m_Center: {x: -0.02245, y: -0.02669999, z: 0}
+    m_Extent: {x: 0.59914994, y: 0.5336, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -2790,8 +2780,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.01969999, y: -0.026900023, z: 0}
-    m_Extent: {x: 0.598, y: 0.5329, z: 0}
+    m_Center: {x: -0.028149992, y: -0.032599986, z: 0}
+    m_Extent: {x: 0.60085, y: 0.5338, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -3174,8 +3164,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.0827, y: -0.12195, z: 0}
-    m_Extent: {x: 0.5124, y: 0.60435, z: 0}
+    m_Center: {x: -0.08499999, y: -0.12144999, z: 0}
+    m_Extent: {x: 0.5208, y: 0.60375, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -4411,8 +4401,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.086200014, y: -0.12355001, z: 0}
-    m_Extent: {x: 0.5195, y: 0.60615003, z: 0}
+    m_Center: {x: -0.07789999, y: -0.121350005, z: 0}
+    m_Extent: {x: 0.5151, y: 0.59755003, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
