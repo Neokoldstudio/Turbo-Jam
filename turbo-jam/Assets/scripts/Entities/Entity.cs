@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
-public abstract class Entity : MonoBehaviour
+public abstract class Entity : SerializedMonoBehaviour
 {
     [SerializeField, Range(0, 1000)]
     private int healthPoints;

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : Entity
@@ -270,11 +271,14 @@ public class PlayerMovement : Entity
             }
             weapon.UpdateRotation(lookDirection);
         }
-
         //rotatesword()
         UpdateVelocity();
     }
 
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
     //Coroutines
     IEnumerator ParryStun()
