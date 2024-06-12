@@ -124,19 +124,27 @@ public class PlayerMovement : Entity
 
     private void OnLookMousePerformed(InputAction.CallbackContext inputValue)
     {
-        // Get mouse position in screen coordinates
         Vector2 mousePosition = Mouse.current.position.ReadValue();
+        float zDistance = 10.0f; // Adjust this value based on your scene depth
 
         // Convert mouse position to world coordinates
-        Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, Camera.main.nearClipPlane));
+        Vector3 screenPosition = new Vector3(mousePosition.x, mousePosition.y, zDistance);
+        Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(screenPosition);
 
-        if (camMidpoint != null)
-            camMidpoint.gameObject.transform.position = Vector3.ClampMagnitude((worldMousePosition - transform.position) / 2, maxLookRange) + transform.position;
-
-
+        Debug.Log("Screen Position: " + screenPosition);
+        Debug.Log("World Mouse Position: " + worldMousePosition);
+        Debug.Log("Player Position: " + transform.position);
 
         // Calculate direction from player position to mouse position
-        lookDirection = (worldMousePosition - transform.position).normalized;
+        Vector3 direction = worldMousePosition - transform.position;
+        Debug.Log("Direction before normalization: " + direction);
+
+        lookDirection = direction.normalized;
+        Debug.Log("Look Direction: " + lookDirection);
+        print(lookDirection.magnitude);
+
+        if (camMidpoint != null)
+            camMidpoint.gameObject.transform.position = Vector3.ClampMagnitude(direction / 2, maxLookRange) + transform.position;
     }
 
     private void OnLookMouseCanceled(InputAction.CallbackContext inputValue) { }
@@ -144,6 +152,9 @@ public class PlayerMovement : Entity
     private void OnLookJoystickPerformed(InputAction.CallbackContext inputValue)
     {
         lookDirection = (inputValue.ReadValue<Vector2>()).normalized;
+
+        if (camMidpoint != null)
+            camMidpoint.gameObject.transform.position = Vector3.ClampMagnitude(lookDirection / 2, maxLookRange) + transform.position;
     }
 
     private void OnLookJoystickCanceled(InputAction.CallbackContext inputValue) { }
@@ -203,6 +214,7 @@ public class PlayerMovement : Entity
 
     public override void parry()
     {
+
         if (needParry)
         {
             needParry = false;
@@ -288,4 +300,5 @@ public class PlayerMovement : Entity
         currentState = State.Move;
         yield return null;
     }
+
 }
