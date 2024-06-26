@@ -64,9 +64,36 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Parry"",
+                    ""name"": ""parry"",
                     ""type"": ""Button"",
                     ""id"": ""e9b4217b-a0d7-4dac-bed7-3db2450917fc"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""ad8d78db-fd39-4b5f-b356-a8adb50be48d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""throwWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""f99b35a4-0510-42d8-923a-9fd4fabffb84"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""openInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""58febedd-d4b0-4331-b238-397b8b1819d9"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -279,7 +306,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Parry"",
+                    ""action"": ""parry"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -290,7 +317,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Parry"",
+                    ""action"": ""parry"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -301,7 +328,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Parry"",
+                    ""action"": ""parry"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -326,6 +353,39 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""lookMouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7a754218-2032-4211-9bda-6855b1309331"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b75c3285-d598-4ac6-9dbd-8b8854bdc831"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""throwWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a2037f0a-6241-41e2-be61-52e2dd5f6325"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""openInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -338,7 +398,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_lookMouse = m_Player.FindAction("lookMouse", throwIfNotFound: true);
         m_Player_lookJoystick = m_Player.FindAction("lookJoystick", throwIfNotFound: true);
         m_Player_hit = m_Player.FindAction("hit", throwIfNotFound: true);
-        m_Player_Parry = m_Player.FindAction("Parry", throwIfNotFound: true);
+        m_Player_parry = m_Player.FindAction("parry", throwIfNotFound: true);
+        m_Player_interact = m_Player.FindAction("interact", throwIfNotFound: true);
+        m_Player_throwWeapon = m_Player.FindAction("throwWeapon", throwIfNotFound: true);
+        m_Player_openInventory = m_Player.FindAction("openInventory", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -404,7 +467,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_lookMouse;
     private readonly InputAction m_Player_lookJoystick;
     private readonly InputAction m_Player_hit;
-    private readonly InputAction m_Player_Parry;
+    private readonly InputAction m_Player_parry;
+    private readonly InputAction m_Player_interact;
+    private readonly InputAction m_Player_throwWeapon;
+    private readonly InputAction m_Player_openInventory;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -413,7 +479,10 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @lookMouse => m_Wrapper.m_Player_lookMouse;
         public InputAction @lookJoystick => m_Wrapper.m_Player_lookJoystick;
         public InputAction @hit => m_Wrapper.m_Player_hit;
-        public InputAction @Parry => m_Wrapper.m_Player_Parry;
+        public InputAction @parry => m_Wrapper.m_Player_parry;
+        public InputAction @interact => m_Wrapper.m_Player_interact;
+        public InputAction @throwWeapon => m_Wrapper.m_Player_throwWeapon;
+        public InputAction @openInventory => m_Wrapper.m_Player_openInventory;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -435,9 +504,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @hit.started += instance.OnHit;
             @hit.performed += instance.OnHit;
             @hit.canceled += instance.OnHit;
-            @Parry.started += instance.OnParry;
-            @Parry.performed += instance.OnParry;
-            @Parry.canceled += instance.OnParry;
+            @parry.started += instance.OnParry;
+            @parry.performed += instance.OnParry;
+            @parry.canceled += instance.OnParry;
+            @interact.started += instance.OnInteract;
+            @interact.performed += instance.OnInteract;
+            @interact.canceled += instance.OnInteract;
+            @throwWeapon.started += instance.OnThrowWeapon;
+            @throwWeapon.performed += instance.OnThrowWeapon;
+            @throwWeapon.canceled += instance.OnThrowWeapon;
+            @openInventory.started += instance.OnOpenInventory;
+            @openInventory.performed += instance.OnOpenInventory;
+            @openInventory.canceled += instance.OnOpenInventory;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -454,9 +532,18 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @hit.started -= instance.OnHit;
             @hit.performed -= instance.OnHit;
             @hit.canceled -= instance.OnHit;
-            @Parry.started -= instance.OnParry;
-            @Parry.performed -= instance.OnParry;
-            @Parry.canceled -= instance.OnParry;
+            @parry.started -= instance.OnParry;
+            @parry.performed -= instance.OnParry;
+            @parry.canceled -= instance.OnParry;
+            @interact.started -= instance.OnInteract;
+            @interact.performed -= instance.OnInteract;
+            @interact.canceled -= instance.OnInteract;
+            @throwWeapon.started -= instance.OnThrowWeapon;
+            @throwWeapon.performed -= instance.OnThrowWeapon;
+            @throwWeapon.canceled -= instance.OnThrowWeapon;
+            @openInventory.started -= instance.OnOpenInventory;
+            @openInventory.performed -= instance.OnOpenInventory;
+            @openInventory.canceled -= instance.OnOpenInventory;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -481,5 +568,8 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnLookJoystick(InputAction.CallbackContext context);
         void OnHit(InputAction.CallbackContext context);
         void OnParry(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnThrowWeapon(InputAction.CallbackContext context);
+        void OnOpenInventory(InputAction.CallbackContext context);
     }
 }

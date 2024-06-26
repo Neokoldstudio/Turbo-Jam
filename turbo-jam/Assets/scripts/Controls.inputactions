@@ -42,9 +42,36 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Parry",
+                    "name": "parry",
                     "type": "Button",
                     "id": "e9b4217b-a0d7-4dac-bed7-3db2450917fc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "interact",
+                    "type": "Button",
+                    "id": "ad8d78db-fd39-4b5f-b356-a8adb50be48d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "throwWeapon",
+                    "type": "Button",
+                    "id": "f99b35a4-0510-42d8-923a-9fd4fabffb84",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "openInventory",
+                    "type": "Button",
+                    "id": "58febedd-d4b0-4331-b238-397b8b1819d9",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -257,7 +284,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Parry",
+                    "action": "parry",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -268,7 +295,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Parry",
+                    "action": "parry",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -279,7 +306,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Parry",
+                    "action": "parry",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -302,6 +329,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "lookMouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7a754218-2032-4211-9bda-6855b1309331",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b75c3285-d598-4ac6-9dbd-8b8854bdc831",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "throwWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a2037f0a-6241-41e2-be61-52e2dd5f6325",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "openInventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

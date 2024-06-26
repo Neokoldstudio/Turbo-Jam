@@ -4,16 +4,11 @@ using UnityEngine;
 
 public class weaponManager : MonoBehaviour
 {
-    private Weapon weapon;
+    public Weapon weapon;
     public GameObject hitbox;
     public bool canRotate = true;
     public bool perfectParry = false;
     private float rotationSpeed = 10f;
-
-    private void Start()
-    {
-        weapon = transform.GetChild(0).GetComponent<Weapon>();
-    }
 
     public void Shake()
     {
@@ -21,11 +16,13 @@ public class weaponManager : MonoBehaviour
     }
     public void Swing()
     {
-        (weapon as sword).SwingVfx();
+        if(weapon != null)
+            (weapon as sword).SwingVfx();
     }
     public void Sparks()
     {
-        (weapon as sword).SparkVfx();
+        if (weapon != null)
+            (weapon as sword).SparkVfx();
     }
 
 
@@ -55,6 +52,18 @@ public class weaponManager : MonoBehaviour
             Debug.LogWarning("Weapon reference is not set!");
             return false;
         }
+    }
+
+    public void DropWeapon(bool throwWeapon)
+    {
+
+    }
+
+    void UnEquipWeapon()
+    {
+
+
+        weapon = null;
     }
 
     public void Parry()

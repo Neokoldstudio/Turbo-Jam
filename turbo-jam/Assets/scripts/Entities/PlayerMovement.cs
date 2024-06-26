@@ -28,7 +28,7 @@ public class PlayerMovement : Entity
     private float hitForce = 5f;
 
     private float spriteSize;
-    public weaponManager weapon;
+    public weaponManager weaponManager;
     public GameObject hands;
     public GameObject sprite;
     public GameObject camMidpoint;
@@ -85,8 +85,11 @@ public class PlayerMovement : Entity
         inputs.Player.hit.performed += OnHitPerformed;
         inputs.Player.hit.canceled += OnHitCanceled;
 
-        inputs.Player.Parry.performed += OnParryPerformed;
-        inputs.Player.Parry.canceled += OnParryCanceled;
+        inputs.Player.parry.performed += OnParryPerformed;
+        inputs.Player.parry.canceled += OnParryCanceled;
+
+        inputs.Player.throwWeapon.performed += OnParryPerformed;
+        inputs.Player.throwWeapon.canceled += OnParryCanceled;
     }
 
     private void OnDisable()
@@ -104,8 +107,8 @@ public class PlayerMovement : Entity
         inputs.Player.hit.performed -= OnHitPerformed;
         inputs.Player.hit.canceled -= OnHitCanceled;
 
-        inputs.Player.Parry.performed -= OnParryPerformed;
-        inputs.Player.Parry.canceled -= OnParryCanceled;
+        inputs.Player.parry.performed -= OnParryPerformed;
+        inputs.Player.parry.canceled -= OnParryCanceled;
     }
 
     private void OnMovementPerformed(InputAction.CallbackContext inputValue)
@@ -166,6 +169,30 @@ public class PlayerMovement : Entity
 
     private void OnHitCanceled(InputAction.CallbackContext inputValue) { }
 
+    private void OnInteractPerformed(InputAction.CallbackContext inputValue)
+    {
+
+    }
+    private void OnInteractCanceled(InputAction.CallbackContext inputValue)
+    {
+
+    }
+    Timer throwTimer;
+    bool throwing = false;
+    private void OnThrowPerformed(InputAction.CallbackContext inputValue)
+    {
+        throwTimer = new Timer(.25f);
+        throwing = true;
+    }
+
+    private void OnThrowCanceled(InputAction.CallbackContext inputValue) {
+        if (!throwTimer.IsOver())
+        {
+            weaponManager.DropWeapon(true);
+            throwing = false;
+        }
+    }
+
     private void OnParryPerformed(InputAction.CallbackContext inputValue)
     {
         currentState = State.Parrying;
@@ -188,8 +215,8 @@ public class PlayerMovement : Entity
             sfxManager.PlaySound("parry_succesful");
 
 
-            weapon.Sparks();
-            if (weapon.GetComponent<weaponManager>().getPerfectParryState())
+            weaponManager.Sparks();
+            if (weaponManager.getPerfectParryState())
             {
                 TimeManager.Instance.SlowTimeSmooth(0.5f, 0.3f, 0.5f);
             }
@@ -199,7 +226,7 @@ public class PlayerMovement : Entity
 
     public override void hit()
     {
-        if (weapon.GetComponent<weaponManager>().Attack(lookDirection))
+        if (weaponManager.Attack(lookDirection))
         {
             Vector2 vec = new Vector2(lookDirection.x * hitForce, lookDirection.y * hitForce);
             rb.AddForce(vec, ForceMode2D.Impulse);
@@ -214,7 +241,6 @@ public class PlayerMovement : Entity
 
     public override void parry()
     {
-
         if (needParry)
         {
             needParry = false;
@@ -223,7 +249,7 @@ public class PlayerMovement : Entity
 
         if (!IsParrying)
         {
-            weapon.GetComponent<weaponManager>().Parry();
+            weaponManager.Parry();
             IsParrying = true;
             rb.velocity = Vector3.zero;
             currentState = State.Idle;
@@ -281,9 +307,19 @@ public class PlayerMovement : Entity
                 default:
                     break;
             }
-            weapon.UpdateRotation(lookDirection);
+            weaponManager.UpdateRotation(lookDirection);
         }
         //rotatesword()
+
+        //Update Timers
+        if(throwing)
+        {
+            if (throwTimer.IsOver())
+            {
+                weaponManager.DropWeapon(false);
+            }
+        }
+
         UpdateVelocity();
     }
 
@@ -292,10 +328,14 @@ public class PlayerMovement : Entity
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public bool CanInteract() {
+        return (currentState != State.Attacking) && (currentState != State.Parrying) && (currentState != State.Dead);
+    }
+
     //Coroutines
     IEnumerator ParryStun()
     {
-        yield return new WaitForSeconds(weapon.GetComponent<weaponManager>().getParryStun());
+        yield return new WaitForSeconds(weaponManager.getParryStun());
         IsParrying = false;
         currentState = State.Move;
         yield return null;

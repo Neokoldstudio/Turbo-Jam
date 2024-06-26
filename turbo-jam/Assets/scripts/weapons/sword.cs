@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class sword : Weapon
 {
-
     public Animator sword_animation;
     public VfxManager vfxManager;
 

@@ -76,7 +76,7 @@ public class AnimationController : MonoBehaviour
 
     public void PickSword()
     {
-        player.weapon.gameObject.SetActive(true);
+        player.weaponManager.gameObject.SetActive(true);
         player.hands.SetActive(false);
         sand.SetActive(false);
         player.cantMove = true;
