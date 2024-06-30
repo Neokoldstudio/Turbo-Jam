@@ -39,7 +39,8 @@ public class PlayerMovement : Entity
 
     private State currentState;
 
-    private bool IsParrying = false;
+    private bool isParrying = false;
+    private bool isAttacking = false;
 
     [HideInInspector]
     public bool inEvent = false;
@@ -205,7 +206,7 @@ public class PlayerMovement : Entity
     #region STATES
     public override void getHit(int Damage, Vector2 Direction)
     {
-        if (IsParrying)
+        if (isParrying)
         {
             print("parried");
             StopCoroutine(parryStun);
@@ -220,7 +221,7 @@ public class PlayerMovement : Entity
             {
                 TimeManager.Instance.SlowTimeSmooth(0.5f, 0.3f, 0.5f);
             }
-            IsParrying = false;
+            isParrying = false;
         }
     }
 
@@ -235,7 +236,7 @@ public class PlayerMovement : Entity
             // AudioSource source = Instantiate(audioSource, transform.position, Quaternion.identity);
             sfxManager.PlaySound("attack");
         }
-        IsParrying = false;
+        isParrying = false;
         currentState = State.Move;
     }
 
@@ -247,10 +248,10 @@ public class PlayerMovement : Entity
             AnimationController.Instance.ParryKnife();
         }
 
-        if (!IsParrying)
+        if (!isParrying)
         {
             weaponManager.Parry();
-            IsParrying = true;
+            isParrying = true;
             rb.velocity = Vector3.zero;
             currentState = State.Idle;
 
@@ -336,7 +337,7 @@ public class PlayerMovement : Entity
     IEnumerator ParryStun()
     {
         yield return new WaitForSeconds(weaponManager.getParryStun());
-        IsParrying = false;
+        isParrying = false;
         currentState = State.Move;
         yield return null;
     }

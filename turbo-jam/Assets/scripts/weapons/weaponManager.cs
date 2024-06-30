@@ -5,7 +5,6 @@ using UnityEngine;
 public class weaponManager : MonoBehaviour
 {
     public Weapon weapon;
-    public GameObject hitbox;
     public bool canRotate = true;
     public bool perfectParry = false;
     private float rotationSpeed = 10f;
@@ -17,18 +16,12 @@ public class weaponManager : MonoBehaviour
     public void Swing()
     {
         if(weapon != null)
-            (weapon as sword).SwingVfx();
+            weapon.SwingVfx();
     }
     public void Sparks()
     {
         if (weapon != null)
-            (weapon as sword).SparkVfx();
-    }
-
-
-    public void SetActiveHitBox(bool value)
-    {
-        hitbox.SetActive(value);
+            weapon.SparkVfx();
     }
 
     public void UpdateRotation(Vector3 lookDirection)
