@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +22,10 @@ public class PlayerMovement : Entity
 
     [SerializeField, Range(0f, 100f)]
     private float accelerationFalloff = 60f;
+
+    [SerializeField, Range(0f, 100f)]
+    private float DodgeSpd = 5f;
+
 
     [SerializeField, Range(0f, 100f)]
     private float hitForce = 5f;
@@ -55,6 +58,7 @@ public class PlayerMovement : Entity
         Move,
         Parrying,
         Attacking,
+        Dodging,
         Buying,
         Dead
     }
@@ -88,8 +92,11 @@ public class PlayerMovement : Entity
         inputs.Player.parry.performed += OnParryPerformed;
         inputs.Player.parry.canceled += OnParryCanceled;
 
-        inputs.Player.throwWeapon.performed += OnParryPerformed;
-        inputs.Player.throwWeapon.canceled += OnParryCanceled;
+        inputs.Player.dodge.performed += OnDodgePerformed;
+        inputs.Player.dodge.canceled += OnDodgeCanceled;
+
+        inputs.Player.throwWeapon.performed += OnThrowPerformed;
+        inputs.Player.throwWeapon.canceled += OnThrowCanceled;
     }
 
     private void OnDisable()
@@ -109,6 +116,12 @@ public class PlayerMovement : Entity
 
         inputs.Player.parry.performed -= OnParryPerformed;
         inputs.Player.parry.canceled -= OnParryCanceled;
+
+        inputs.Player.dodge.performed -= OnDodgePerformed;
+        inputs.Player.dodge.canceled -= OnDodgeCanceled;
+
+        inputs.Player.throwWeapon.performed -= OnThrowPerformed;
+        inputs.Player.throwWeapon.canceled -= OnThrowCanceled;
     }
 
     private void OnMovementPerformed(InputAction.CallbackContext inputValue)
@@ -169,6 +182,30 @@ public class PlayerMovement : Entity
 
     private void OnHitCanceled(InputAction.CallbackContext inputValue) { }
 
+    private void OnDodgePerformed(InputAction.CallbackContext inputValue)
+    {
+        Vector3 DodgeDir = rb.velocity;
+
+        float maxSpeedChange = acceleration * Time.deltaTime;
+
+        DodgeDir.x = Mathf.MoveTowards(DodgeDir.x, Direction.x * MaxSpeed, maxSpeedChange);
+        DodgeDir.y = Mathf.MoveTowards(DodgeDir.y, Direction.y * MaxSpeed, maxSpeedChange);
+
+        rb.AddForce(DodgeDir * DodgeSpd, ForceMode2D.Impulse);
+    }
+
+    private void OnDodgeCanceled(InputAction.CallbackContext inputValue)
+    {
+        rb.velocity = Vector2.zero;
+    }
+
+    private void OnParryPerformed(InputAction.CallbackContext inputValue)
+    {
+        currentState = State.Parrying;
+    }
+
+    private void OnParryCanceled(InputAction.CallbackContext inputValue) { }
+
     private void OnInteractPerformed(InputAction.CallbackContext inputValue)
     {
 
@@ -185,20 +222,14 @@ public class PlayerMovement : Entity
         throwing = true;
     }
 
-    private void OnThrowCanceled(InputAction.CallbackContext inputValue) {
+    private void OnThrowCanceled(InputAction.CallbackContext inputValue)
+    {
         if (!throwTimer.IsOver())
         {
             weaponManager.DropWeapon(true);
             throwing = false;
         }
     }
-
-    private void OnParryPerformed(InputAction.CallbackContext inputValue)
-    {
-        currentState = State.Parrying;
-    }
-
-    private void OnParryCanceled(InputAction.CallbackContext inputValue) { }
 
     #endregion
 
@@ -222,6 +253,17 @@ public class PlayerMovement : Entity
             }
             IsParrying = false;
         }
+    }
+
+    private void Idle()
+    {
+        //Pour plus tard, si jamais on veut avoir des events qui se passent sur le Idle (comme des petites animations qui se lancent après un certains temps)
+    }
+
+    private void Move()
+    {
+        if (Mathf.Sign(sprite.transform.localScale.x) != Mathf.Sign(lookDirection.x) && lookDirection.x != 0.0f)
+            sprite.transform.localScale = new Vector3(Mathf.Sign(lookDirection.x) * spriteSize, sprite.transform.localScale.y, sprite.transform.localScale.z);
     }
 
     public override void hit()
@@ -254,22 +296,16 @@ public class PlayerMovement : Entity
             rb.velocity = Vector3.zero;
             currentState = State.Idle;
 
-            // parry sfx 
+            // parry sfx
             sfxManager.PlaySound("parry_proc");
 
             StartCoroutine(ParryStun());
         }
     }
 
-    private void Idle()
+    public void dodge()
     {
-        //Pour plus tard, si jamais on veut avoir des events qui se passent sur le Idle (comme des petites animations qui se lancent après un certains temps)
-    }
-
-    private void Move()
-    {
-        if (Mathf.Sign(sprite.transform.localScale.x) != Mathf.Sign(lookDirection.x) && lookDirection.x != 0.0f)
-            sprite.transform.localScale = new Vector3(Mathf.Sign(lookDirection.x) * spriteSize, sprite.transform.localScale.y, sprite.transform.localScale.z);
+        //voir comment implémenter la logique du dodge en tant qu'état
     }
 
     void UpdateVelocity()
@@ -304,6 +340,9 @@ public class PlayerMovement : Entity
                 case State.Parrying:
                     parry();
                     break;
+                case State.Dodging:
+                    dodge();
+                    break;
                 default:
                     break;
             }
@@ -312,7 +351,7 @@ public class PlayerMovement : Entity
         //rotatesword()
 
         //Update Timers
-        if(throwing)
+        if (throwing)
         {
             if (throwTimer.IsOver())
             {
@@ -328,7 +367,8 @@ public class PlayerMovement : Entity
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public bool CanInteract() {
+    public bool CanInteract()
+    {
         return (currentState != State.Attacking) && (currentState != State.Parrying) && (currentState != State.Dead);
     }
 

@@ -98,6 +98,15 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""dodge"",
+                    ""type"": ""Button"",
+                    ""id"": ""491c4813-6b1c-4989-8db6-14926c6770aa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -386,6 +395,28 @@ public partial class @Controls: IInputActionCollection2, IDisposable
                     ""action"": ""openInventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8aba855a-9777-4e82-8168-7531918d54bc"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1f8ef8f1-3065-4723-a0b9-2abc6f1a099a"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""dodge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -402,6 +433,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         m_Player_interact = m_Player.FindAction("interact", throwIfNotFound: true);
         m_Player_throwWeapon = m_Player.FindAction("throwWeapon", throwIfNotFound: true);
         m_Player_openInventory = m_Player.FindAction("openInventory", throwIfNotFound: true);
+        m_Player_dodge = m_Player.FindAction("dodge", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -471,6 +503,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_interact;
     private readonly InputAction m_Player_throwWeapon;
     private readonly InputAction m_Player_openInventory;
+    private readonly InputAction m_Player_dodge;
     public struct PlayerActions
     {
         private @Controls m_Wrapper;
@@ -483,6 +516,7 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         public InputAction @interact => m_Wrapper.m_Player_interact;
         public InputAction @throwWeapon => m_Wrapper.m_Player_throwWeapon;
         public InputAction @openInventory => m_Wrapper.m_Player_openInventory;
+        public InputAction @dodge => m_Wrapper.m_Player_dodge;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -516,6 +550,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @openInventory.started += instance.OnOpenInventory;
             @openInventory.performed += instance.OnOpenInventory;
             @openInventory.canceled += instance.OnOpenInventory;
+            @dodge.started += instance.OnDodge;
+            @dodge.performed += instance.OnDodge;
+            @dodge.canceled += instance.OnDodge;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -544,6 +581,9 @@ public partial class @Controls: IInputActionCollection2, IDisposable
             @openInventory.started -= instance.OnOpenInventory;
             @openInventory.performed -= instance.OnOpenInventory;
             @openInventory.canceled -= instance.OnOpenInventory;
+            @dodge.started -= instance.OnDodge;
+            @dodge.performed -= instance.OnDodge;
+            @dodge.canceled -= instance.OnDodge;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -571,5 +611,6 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
         void OnThrowWeapon(InputAction.CallbackContext context);
         void OnOpenInventory(InputAction.CallbackContext context);
+        void OnDodge(InputAction.CallbackContext context);
     }
 }
