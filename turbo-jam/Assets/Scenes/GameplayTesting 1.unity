@@ -6436,7 +6436,7 @@ PrefabInstance:
     - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
         type: 3}
       propertyPath: DodgeSpd
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
         type: 3}
@@ -6451,12 +6451,92 @@ PrefabInstance:
     - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
         type: 3}
       propertyPath: DodgeAnimSpeed
-      value: 0.36
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
         type: 3}
       propertyPath: serializationData.Prefab
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
+        type: 3}
+      propertyPath: dodgeSpeedCurve.m_Curve.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
+        type: 3}
+      propertyPath: dodgeSpeedCurve.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
+        type: 3}
+      propertyPath: dodgeSpeedCurve.m_Curve.Array.data[1].time
+      value: 0.7417389
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
+        type: 3}
+      propertyPath: dodgeSpeedCurve.m_Curve.Array.data[2].time
+      value: 0.9999958
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
+        type: 3}
+      propertyPath: dodgeSpeedCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
+        type: 3}
+      propertyPath: dodgeSpeedCurve.m_Curve.Array.data[1].value
+      value: 0.64112437
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
+        type: 3}
+      propertyPath: dodgeSpeedCurve.m_Curve.Array.data[2].value
+      value: 0.00003056228
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
+        type: 3}
+      propertyPath: dodgeSpeedCurve.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
+        type: 3}
+      propertyPath: dodgeSpeedCurve.m_Curve.Array.data[1].inSlope
+      value: -1.7952771
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
+        type: 3}
+      propertyPath: dodgeSpeedCurve.m_Curve.Array.data[2].inSlope
+      value: -0.092776135
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
+        type: 3}
+      propertyPath: dodgeSpeedCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
+        type: 3}
+      propertyPath: dodgeSpeedCurve.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
+        type: 3}
+      propertyPath: dodgeSpeedCurve.m_Curve.Array.data[1].outSlope
+      value: -1.7952771
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
+        type: 3}
+      propertyPath: dodgeSpeedCurve.m_Curve.Array.data[2].inWeight
+      value: 0.05301557
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
+        type: 3}
+      propertyPath: dodgeSpeedCurve.m_Curve.Array.data[2].outSlope
+      value: -0.092776135
+      objectReference: {fileID: 0}
+    - target: {fileID: 9081624694125441587, guid: 85e2115e33caa8347982a309e1ccc9b1,
+        type: 3}
+      propertyPath: dodgeSpeedCurve.m_Curve.Array.data[1].outWeight
+      value: 0.20026372
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 85e2115e33caa8347982a309e1ccc9b1, type: 3}

@@ -1550,12 +1550,46 @@ MonoBehaviour:
   healthPoints: 0
   rb: {fileID: 3479444652858116385}
   MaxSpeed: 1
-  maxLookRange: 0
   accelerationBuildUp: 20
   accelerationFalloff: 100
-  DodgeSpd: 5
-  hitForce: 20
-  weaponManager: {fileID: 0}
+  hitForce: 1
+  DodgeSpd: 3
+  DodgeAnimSpeed: 0.7
+  dodgeSpeedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.7417389
+      value: 0.64112437
+      inSlope: -1.7952771
+      outSlope: -1.7952771
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.20026372
+    - serializedVersion: 3
+      time: 0.9999958
+      value: 0.00003056228
+      inSlope: -0.092776135
+      outSlope: -0.092776135
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.05301557
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maxLookRange: 0
+  weaponManager: {fileID: 5219503881171875051}
   hands: {fileID: 3262956036979084090}
   sprite: {fileID: 9081624693171058843}
   camMidpoint: {fileID: 6294705044746665205}

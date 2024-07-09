@@ -31,6 +31,10 @@ public class PlayerMovement : Entity
     [SerializeField, Range(0f, 5f)]
     private float DodgeAnimSpeed = 1f;
 
+    [SerializeField]
+    private AnimationCurve dodgeSpeedCurve = AnimationCurve.Linear(0f, 1f, 1f, 1f); // Exemple de courbe linéaire par défaut
+    private float DodgeElapsedTime;
+
     [SerializeField, Range(0f, 10f)]
     private float maxLookRange;
 
@@ -200,6 +204,7 @@ public class PlayerMovement : Entity
                 DodgeDirection = new Vector2(1, 0) * Mathf.Sign(sprite.transform.localScale.x);
             }
             currentState = State.Dodging;
+            DodgeElapsedTime = 0f;
         }
     }
 
@@ -290,7 +295,15 @@ public class PlayerMovement : Entity
         //voir comment implémenter la logique du dodge en tant qu'état
         sprite.transform.localScale = new Vector3(Mathf.Sign(DodgeDirection.x) * spriteSize, sprite.transform.localScale.y, sprite.transform.localScale.z);
 
-        rb.velocity = DodgeDirection.normalized * DodgeSpd;
+        float t = DodgeElapsedTime / DodgeAnimSpeed;
+        float speedMultiplier = dodgeSpeedCurve.Evaluate(t);
+        Vector2 velocity = DodgeDirection.normalized * DodgeSpd * speedMultiplier;
+
+        rb.velocity = velocity;
+
+        DodgeElapsedTime += Time.fixedDeltaTime;
+
+        //rb.velocity = DodgeDirection.normalized * DodgeSpd;
     }
 
     public override void hit()
