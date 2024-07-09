@@ -17,7 +17,7 @@ public class WeaPopcorn : Weapon
 
     private void Start()
     {
-        if(anim == null)
+        if (anim == null)
             anim = GetComponentInParent<Animator>();
 
         ammo = maxAmmo;
@@ -25,8 +25,9 @@ public class WeaPopcorn : Weapon
     public override bool Attack(Vector2 direction)
     {
         attackDir = direction;
-        if(!empty && anim.GetCurrentAnimatorClipInfo(0)[0].clip.name != "PopcornAttack")
+        if (!empty && anim.GetCurrentAnimatorClipInfo(0)[0].clip.name != "PopcornAttack")
         {
+            ammo--;
             if (!anim.GetBool("swing"))
             {
                 anim.SetTrigger("swing");
@@ -37,7 +38,7 @@ public class WeaPopcorn : Weapon
                 popcornBagSR.sprite = bagEmpty;
                 empty = true;
             }
-            else if (ammo < maxAmmo/2)
+            else if (ammo < maxAmmo / 2)
             {
                 popcornBagSR.sprite = bagHalf;
             }
@@ -45,7 +46,6 @@ public class WeaPopcorn : Weapon
             {
                 popcornBagSR.sprite = bagFull;
             }
-            ammo--;
             return true;
         }
         return false;

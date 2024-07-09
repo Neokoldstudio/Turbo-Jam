@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 175297736900008115}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.016, y: 0.524, z: 0}
+  m_LocalRotation: {x: 0, y: -0, z: 0.5030954, w: -0.86423093}
+  m_LocalPosition: {x: 0.1659449, y: 0.22417916, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 9081624692521977945}
-  m_RootOrder: 1
+  m_Father: {fileID: 1827872037276038174}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &6651570403304522365
 CircleCollider2D:
@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: Enemy
-  sword: {fileID: 387859498215208233}
+  weapon: {fileID: 0}
   hitSomething: 0
   hitpoint: {x: 0, y: 0}
 --- !u!1 &247666738793012695
@@ -335,6 +335,7 @@ Transform:
   m_Children:
   - {fileID: 7406467460665742586}
   - {fileID: 5867253304066006964}
+  - {fileID: 6409904048309255740}
   m_Father: {fileID: 9081624692521977945}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 420.41}
@@ -409,9 +410,10 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
-  sword_animation: {fileID: 3250741390196579056}
   vfxManager: {fileID: 7048464581673906361}
   vfxRange: 3
+  attackDir: {x: 0, y: 0}
+  sword_animation: {fileID: 3250741390196579056}
 --- !u!82 &5639780960610245866
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1121,7 +1123,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1827872037276038174}
-  - {fileID: 6409904048309255740}
   m_Father: {fileID: 9081624694125441584}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
@@ -1137,7 +1138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3167c1b848e6ab57996f706aa13b73c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitbox: {fileID: 175297736900008115}
+  weapon: {fileID: 0}
   canRotate: 1
   perfectParry: 0
 --- !u!95 &3250741390196579056
@@ -1204,6 +1205,7 @@ GameObject:
   - component: {fileID: 9081624693171058845}
   - component: {fileID: 9081624693171058844}
   - component: {fileID: 2912711418342077651}
+  - component: {fileID: 7994377488706606684}
   m_Layer: 0
   m_Name: sprite
   m_TagString: Untagged
@@ -1389,6 +1391,18 @@ MonoBehaviour:
       Entry: 8
       Data: 
   currentVfx: []
+--- !u!114 &7994377488706606684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9081624693171058843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c06047e8bc1619d45b7dfb388f864bd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9081624693179217873
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,14 +1538,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054afe53ed3e1456ca6ce177066caf04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   healthPoints: 0
   rb: {fileID: 3479444652858116385}
   MaxSpeed: 1
   maxLookRange: 0
   accelerationBuildUp: 20
   accelerationFalloff: 100
+  DodgeSpd: 5
   hitForce: 20
-  weapon: {fileID: 5219503881171875051}
+  weaponManager: {fileID: 0}
   hands: {fileID: 3262956036979084090}
   sprite: {fileID: 9081624693171058843}
   camMidpoint: {fileID: 6294705044746665205}

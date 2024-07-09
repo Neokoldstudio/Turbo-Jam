@@ -18,13 +18,13 @@ public class Hitbox : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision != null)
+        if (collision != null)
         {
             if (collision.CompareTag(targetTag))
             {
                 hitSomething = true;
                 hitpoint = collision.bounds.center;
-                weapon.OnHit(collision.GetComponent<Entity>());
+                weapon.OnHit(collision.gameObject.GetComponent<Entity>());
             }
         }
     }

@@ -15,7 +15,7 @@ public class weaponManager : MonoBehaviour
     }
     public void Swing()
     {
-        if(weapon != null)
+        if (weapon != null)
             weapon.SwingVfx();
     }
     public void Sparks()
@@ -54,8 +54,6 @@ public class weaponManager : MonoBehaviour
 
     void UnEquipWeapon()
     {
-
-
         weapon = null;
     }
 
