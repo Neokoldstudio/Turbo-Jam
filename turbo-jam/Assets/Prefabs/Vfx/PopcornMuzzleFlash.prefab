@@ -4994,7 +4994,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.25
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5540,13 +5540,13 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 25
+    angle: 22.3
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 0.61
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
-    m_Rotation: {x: -54.2, y: 0, z: 0}
+    m_Rotation: {x: -42.18, y: 0, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -7129,7 +7129,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: -1
+          value: -0.4166692
           inSlope: 3.2812498
           outSlope: 3.2812498
           tangentMode: 0
@@ -7137,8 +7137,8 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.13333334
         - serializedVersion: 3
-          time: 1
-          value: -0.04166922
+          time: 0.99560547
+          value: -0.062505096
           inSlope: 3.8062341
           outSlope: 3.8062341
           tangentMode: 0
@@ -9701,7 +9701,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6714092004626847619}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1eebee7c779234b4b863a981cc68c6d3, type: 3}
   m_Name: 
@@ -9731,7 +9731,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7151749945543690745}
-  m_LocalRotation: {x: 0.14763674, y: -0, z: -0, w: 0.9890417}
+  m_LocalRotation: {x: 0.14763674, y: 0, z: 0, w: 0.9890417}
   m_LocalPosition: {x: -0.04699993, y: -1.9376801, z: -0.59166855}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9739,7 +9739,7 @@ Transform:
   - {fileID: 7151749946434201788}
   m_Father: {fileID: 6714092004626847616}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 16.98, y: 0, z: 0}
 --- !u!198 &7151749945543690751
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -9823,8 +9823,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.4
-      minScalar: 0.2
+      scalar: 0.5
+      minScalar: 0.3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -14549,7 +14549,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7151749946434201788
 Transform:
   m_ObjectHideFlags: 0
@@ -14648,7 +14648,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.2
+      scalar: 0.4
       minScalar: 0.1
       maxCurve:
         serializedVersion: 2

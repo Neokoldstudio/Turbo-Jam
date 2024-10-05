@@ -11,14 +11,15 @@ public class Gibs : MonoBehaviour
     public float impulseForce;
     public Vector2 angularChange;
 
-    public Vector2 Direction = Vector2.zero;
+    public Vector2 Direction;
 
     static float t = 0.0f;
 
     public void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        Direction = new Vector2(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f));
+        if(Direction == Vector2.zero)
+            Direction = new Vector2(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f));
         rb2d.AddForce(Direction * impulseForce, ForceMode2D.Impulse);
         float impulse = (Random.Range(angularChange.x,angularChange.y) * Mathf.Deg2Rad) * rb2d.inertia;
         rb2d.AddTorque(impulse, ForceMode2D.Impulse);

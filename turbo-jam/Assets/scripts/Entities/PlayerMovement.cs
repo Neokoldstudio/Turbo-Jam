@@ -38,6 +38,8 @@ public class PlayerMovement : Entity
     [SerializeField, Range(0f, 10f)]
     private float maxLookRange;
 
+    public Color skinColor;
+
     private float spriteSize;
     public weaponManager weaponManager;
     public GameObject hands;
@@ -49,9 +51,9 @@ public class PlayerMovement : Entity
     public SfxManager sfxManager;
 
     private State currentState;
+    private State lastState;
 
     private bool isParrying = false;
-    private bool isAttacking = false;
 
     [HideInInspector]
     public bool inEvent = false;
@@ -80,6 +82,8 @@ public class PlayerMovement : Entity
         rb = GetComponent<Rigidbody2D>();
         spriteSize = sprite.transform.localScale.x;
         parryStun = ParryStun();
+        weaponManager.skinColor = skinColor;
+        weaponManager.hands = hands;
     }
 
     #region INPUTS
@@ -106,6 +110,9 @@ public class PlayerMovement : Entity
 
         inputs.Player.throwWeapon.performed += OnThrowPerformed;
         inputs.Player.throwWeapon.canceled += OnThrowCanceled;
+
+        inputs.Player.interact.performed += OnInteractPerformed;
+        inputs.Player.interact.canceled += OnInteractCanceled;
     }
 
     private void OnDisable()
@@ -131,12 +138,18 @@ public class PlayerMovement : Entity
 
         inputs.Player.throwWeapon.performed -= OnThrowPerformed;
         inputs.Player.throwWeapon.canceled -= OnThrowCanceled;
+
+        inputs.Player.interact.performed -= OnInteractPerformed;
+        inputs.Player.interact.canceled -= OnInteractCanceled;
     }
 
     private void OnMovementPerformed(InputAction.CallbackContext inputValue)
     {
         Direction = inputValue.ReadValue<Vector2>();
-        playerAnim.SetBool("run", true);
+        if(currentState == State.Move)
+        {
+            playerAnim.SetBool("run", true);
+        }
         acceleration = accelerationBuildUp;
     }
 
@@ -184,7 +197,17 @@ public class PlayerMovement : Entity
 
     private void OnHitPerformed(InputAction.CallbackContext inputValue)
     {
-        if (currentState != State.Dodging) currentState = State.Attacking;
+        if (hasWeapon())
+        {
+            if (throwing)
+            {
+                Debug.LogWarning(throwTimer.PercentTime());
+                weaponManager.ThrowWeapon(throwTimer.PercentTime(), lookDirection);
+                CancelThrow();
+                return;
+            }
+            if (currentState != State.Dodging) currentState = State.Attacking;
+        }
     }
 
     private void OnHitCanceled(InputAction.CallbackContext inputValue) { }
@@ -193,7 +216,7 @@ public class PlayerMovement : Entity
     {
         if (currentState != State.Dodging && currentState != State.Attacking)
         {
-            playerAnim.SetBool("dodge", true);
+            playerAnim.SetTrigger("dodge");
             playerAnim.speed = 1f / DodgeAnimSpeed;
             weaponManager.gameObject.SetActive(false);
 
@@ -203,6 +226,7 @@ public class PlayerMovement : Entity
             {
                 DodgeDirection = new Vector2(1, 0) * Mathf.Sign(sprite.transform.localScale.x);
             }
+            lastState = currentState;
             currentState = State.Dodging;
             DodgeElapsedTime = 0f;
         }
@@ -212,43 +236,106 @@ public class PlayerMovement : Entity
 
     public void StopDodge()
     {
-        currentState = State.Move;
+        currentState = lastState;
+        if(Direction != Vector2.zero)
+        {
+            playerAnim.SetBool("run", true);
+        }
         weaponManager.gameObject.SetActive(true);
-        playerAnim.SetBool("dodge", false);
         playerAnim.speed = 1f;
     }
 
     private void OnParryPerformed(InputAction.CallbackContext inputValue)
     {
-        if (currentState != State.Dodging && currentState != State.Attacking)
-            currentState = State.Parrying;
+        if (hasWeapon())
+        {
+            if (throwing)
+            {
+                weaponManager.DropWeapon();
+                CancelThrow();
+                return;
+            }
+            if (currentState != State.Dodging && currentState != State.Attacking)
+            {
+                lastState = currentState;
+                Debug.LogWarning(lastState);
+                currentState = State.Parrying;
+            }
+        }
     }
 
     private void OnParryCanceled(InputAction.CallbackContext inputValue) { }
 
     private void OnInteractPerformed(InputAction.CallbackContext inputValue)
     {
+        if (CanInteract() && interactables.Count > 0)
+        {
+            Debug.Log(NearestInteractables());
+            NearestInteractables().OnInteract(this);
+        }
+    }
 
+    public Interactable NearestInteractables()
+    {
+        if (interactables.Count > 1)
+        {
+            Interactable nearestInteractable = interactables[0];
+            float nearestDistance = (interactables[0].transform.position - transform.position).sqrMagnitude;
+            for(int i = 0; i < interactables.Count; i++)
+            {
+                interactables[0].RemoveHighLight();
+                float distance = (interactables[i].transform.position - transform.position).sqrMagnitude;
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearestInteractable = interactables[i];
+                    interactables[i].HighLight();
+                }
+            }
+            return nearestInteractable;
+        }
+        else if(interactables.Count == 1)
+        {
+            interactables[0].HighLight();
+            return interactables[0];
+        }
+        return null;
+    }
+
+    public void GrabItem(ItemPickUp pickUp)
+    {
+        if (hasWeapon())
+        {
+            weaponManager.DropWeapon();
+        }
+        weaponManager.EquipWeapon(pickUp.weapon);
     }
     private void OnInteractCanceled(InputAction.CallbackContext inputValue)
     {
-
     }
     Timer throwTimer;
     bool throwing = false;
     private void OnThrowPerformed(InputAction.CallbackContext inputValue)
     {
-        throwTimer = new Timer(.25f);
-        throwing = true;
+        if (hasWeapon())
+        {
+            throwTimer = new Timer(weaponManager.weapon.throwChargeTime);
+
+            throwing = true;
+
+            weaponManager.animator.SetBool("charging", true);
+        }
     }
 
     private void OnThrowCanceled(InputAction.CallbackContext inputValue)
     {
-        if (!throwTimer.IsOver())
-        {
-            weaponManager.DropWeapon(true);
-            throwing = false;
-        }
+        CancelThrow();
+    }
+    void CancelThrow()
+    {
+        throwing = false;
+        weaponManager.animator.SetBool("charging", false);
+        throwTimer.End();
     }
 
     #endregion
@@ -280,17 +367,23 @@ public class PlayerMovement : Entity
     private void Idle()
     {
         //Pour plus tard, si jamais on veut avoir des events qui se passent sur le Idle (comme des petites animations qui se lancent après un certains temps)
+        UpdateSpriteScale();
         UpdateVelocity();
     }
 
     private void Move()
     {
-        if (Mathf.Sign(sprite.transform.localScale.x) != Mathf.Sign(lookDirection.x) && lookDirection.x != 0.0f)
-            sprite.transform.localScale = new Vector3(Mathf.Sign(lookDirection.x) * spriteSize, sprite.transform.localScale.y, sprite.transform.localScale.z);
+        UpdateSpriteScale();
         UpdateVelocity();
     }
 
-    private void dodge()
+    private void UpdateSpriteScale()
+    {
+        if (Mathf.Sign(sprite.transform.localScale.x) != Mathf.Sign(lookDirection.x) && lookDirection.x != 0.0f)
+            sprite.transform.localScale = new Vector3(Mathf.Sign(lookDirection.x) * spriteSize, sprite.transform.localScale.y, sprite.transform.localScale.z);
+    }
+
+    private void Dodge()
     {
         //voir comment implémenter la logique du dodge en tant qu'état
         sprite.transform.localScale = new Vector3(Mathf.Sign(DodgeDirection.x) * spriteSize, sprite.transform.localScale.y, sprite.transform.localScale.z);
@@ -323,17 +416,12 @@ public class PlayerMovement : Entity
 
     public override void parry()
     {
-        if (needParry)
-        {
-            needParry = false;
-            AnimationController.Instance.ParryKnife();
-        }
-
         if (!isParrying)
         {
             weaponManager.Parry();
             isParrying = true;
             rb.velocity = Vector3.zero;
+            playerAnim.SetBool("run", false);
             //currentState = State.Idle;
 
             // parry sfx
@@ -360,6 +448,8 @@ public class PlayerMovement : Entity
 
     void FixedUpdate()
     {
+        if (CanInteract())
+            NearestInteractables();
         if (!inEvent)
         {
             switch (currentState)
@@ -371,13 +461,14 @@ public class PlayerMovement : Entity
                     Move();
                     break;
                 case State.Attacking:
-                    hit();
+                        hit();
                     break;
                 case State.Parrying:
-                    parry();
+                    if(hasWeapon())
+                        parry();
                     break;
                 case State.Dodging:
-                    dodge();
+                    Dodge();
                     break;
                 default:
                     break;
@@ -386,15 +477,6 @@ public class PlayerMovement : Entity
         }
         //rotatesword()
 
-        //Update Timers
-        if (throwing)
-        {
-            if (throwTimer.IsOver())
-            {
-                weaponManager.DropWeapon(false);
-            }
-        }
-
         //UpdateVelocity();
     }
 
@@ -402,10 +484,14 @@ public class PlayerMovement : Entity
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    public bool hasWeapon()
+    {
+        return weaponManager.weapon != null;
+    }
 
     public bool CanInteract()
     {
-        return (currentState != State.Attacking) && (currentState != State.Parrying) && (currentState != State.Dead);
+        return (currentState != State.Attacking) && (currentState != State.Parrying) && (currentState != State.Dodging);
     }
 
     #region COROUTINES
@@ -413,7 +499,11 @@ public class PlayerMovement : Entity
     {
         yield return new WaitForSeconds(weaponManager.getParryStun());
         isParrying = false;
-        currentState = State.Move;
+        currentState = lastState;
+        if (currentState == State.Move)
+        {
+            playerAnim.SetBool("run", true);
+        }
         yield return null;
     }
     #endregion

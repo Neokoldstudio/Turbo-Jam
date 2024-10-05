@@ -1,11 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : SerializedMonoBehaviour
 {
-    [SerializeField, Range(0, 1000)]
+    [SerializeField, Range(0, 10)]
     public int damagePoint;
+    
+    [SerializeField, Range(1,6)]
+    public int penetration = 1;
+
+    [Range(0, 2)]
+    public float throwChargeTime;
+    public float throwForce;
 
     [SerializeField, Range(0f, 10f)]
     public float attackRange;
@@ -18,12 +26,26 @@ public abstract class Weapon : MonoBehaviour
     private bool IsAttacking{get;set;}
     public LayerMask enemyLayer;
 
-    public VfxManager vfxManager;
+    public bool droppable;
 
+    [ShowIf("droppable")]
+    public ItemPickUp pickUpItem;
+
+    public bool requiresAnimation;
+
+    [ShowIf("requiresAnimation")]
+    public RuntimeAnimatorController animatorController;
+
+    public SpriteRenderer[] skinToRecolor;
+
+    public VfxManager vfxManager;
     [SerializeField, Range(0f, 10f)]
     public float vfxRange;
     [HideInInspector]
     public Vector2 attackDir;
+
+    [HideInInspector]
+    public weaponManager wManager;
 
     public virtual bool Attack(Vector2 direction)
     {
@@ -37,8 +59,8 @@ public abstract class Weapon : MonoBehaviour
     }
         
     public virtual void OnHit(Entity target)
-    { 
-    
+    {
+        wManager.FinishSwing();
     }
 
     #region VFX

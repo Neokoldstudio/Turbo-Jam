@@ -41,7 +41,7 @@ Material:
     m_Ints: []
     m_Floats:
     - CORNERS: 1
-    - _Outline_Tickness: 0
+    - _Outline_Tickness: 1
     - _QueueControl: 1
     - _QueueOffset: 0
     m_Colors:

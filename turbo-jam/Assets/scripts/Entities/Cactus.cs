@@ -38,4 +38,8 @@ public class Cactus : Entity
 
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+    }
 }

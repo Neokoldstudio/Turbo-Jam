@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class sword : Weapon
 {
+    [HideInInspector]
     public Animator sword_animation;
 
     private void Start()
     {
-        if(sword_animation == null)
+        if (sword_animation == null)
             sword_animation = GetComponentInParent<Animator>();
+
+        if (wManager.animator != null)
+        {
+            wManager.animator.Rebind();
+            wManager.animator.Update(0f);
+        }
     }
 
     public override bool Attack(Vector2 direction)

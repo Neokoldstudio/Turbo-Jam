@@ -309,10 +309,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c9131ed41f713d3790d75d46b1b00ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   healthPoints: 0
   rb: {fileID: 9162275051319446943}
-  maxSpeed: 0.5
-  attackRange: 2
+  maxSpeed: 0.6
+  attackRange: 1.2
   hitForce: 0.1
   rotationSpeed: 5
   weapon: {fileID: 9162275051814071449}
@@ -501,7 +510,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9162275051581334956}
   m_LocalRotation: {x: -0, y: -0, z: -0.10509048, w: 0.99446267}
-  m_LocalPosition: {x: 0.081, y: 0.351, z: 0}
+  m_LocalPosition: {x: 0.02, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -521,7 +530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: Player
-  sword: {fileID: 9162275053193002735}
+  weapon: {fileID: 0}
   hitSomething: 0
   hitpoint: {x: 0, y: 0}
 --- !u!58 &9162275051581334864
@@ -539,7 +548,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.2950282
+  m_Radius: 0.55
 --- !u!1 &9162275051814071445
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,8 +617,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3167c1b848e6ab57996f706aa13b73c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitbox: {fileID: 9162275051581334956}
+  weapon: {fileID: 0}
   canRotate: 1
+  perfectParry: 0
 --- !u!1 &9162275052141216185
 GameObject:
   m_ObjectHideFlags: 0
@@ -667,7 +677,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a405aa5ac5ce0264384dab4520b15632, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -772,7 +782,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a405aa5ac5ce0264384dab4520b15632, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -856,7 +866,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a405aa5ac5ce0264384dab4520b15632, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -940,7 +950,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a405aa5ac5ce0264384dab4520b15632, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1059,7 +1069,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a405aa5ac5ce0264384dab4520b15632, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1104,15 +1114,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagePoint: 266
+  penetration: 0
   attackRange: 1
   parryStun: 1
   knockbackForce: 5
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
-  sword_animation: {fileID: 9162275051814071447}
   vfxManager: {fileID: 9162275053193002734}
   vfxRange: 1
+  attackDir: {x: 0, y: 0}
+  sword_animation: {fileID: 9162275051814071447}
 --- !u!114 &9162275053193002734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1324,7 +1336,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a405aa5ac5ce0264384dab4520b15632, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

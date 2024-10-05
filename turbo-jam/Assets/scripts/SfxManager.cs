@@ -6,21 +6,22 @@ using Sirenix.OdinInspector;
 [RequireComponent(typeof(AudioSource))]
 public class SfxManager : MonoBehaviour
 {
-    public List<sfx> sounds;
+    public List<sfx> sounds = new List<sfx>();
 
     AudioSource source;
 
-    public void OnValidate()
+    public void Start()
     {
         if (source == null)
             source = GetComponent<AudioSource>();
     }
 
-    public void PlaySound(string name)
+    public void PlaySound(string sfxName)
     {
-        if (ContainSound(name))
+        if (ContainSound(sfxName))
         {
-            source.PlayOneShot(GetSound(name).clips[Random.Range(0, GetSound(name).clips.Length)]);
+            print(sounds[GetSoundIndex(sfxName)].clips[0]);
+            source.PlayOneShot(sounds[GetSoundIndex(sfxName)].clips[0]);
         }
         else
         {
@@ -37,14 +38,14 @@ public class SfxManager : MonoBehaviour
         }
         return false;
     }
-    sfx GetSound(string name)
+    int GetSoundIndex(string name)
     {
         for (int i = 0; i < sounds.Count; i++)
         {
             if (sounds[i].name == name)
-                return sounds[i];
+                return i;
         }
-        return null;
+        return -1;
     }
 
 }
