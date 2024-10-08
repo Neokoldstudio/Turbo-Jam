@@ -49,6 +49,7 @@ public class PlayerMovement : Entity
     public Animator playerAnim;
 
     public SfxManager sfxManager;
+    public VfxManager vfxManager;
 
     private State currentState;
     private State lastState;
@@ -380,7 +381,10 @@ public class PlayerMovement : Entity
     private void UpdateSpriteScale()
     {
         if (Mathf.Sign(sprite.transform.localScale.x) != Mathf.Sign(lookDirection.x) && lookDirection.x != 0.0f)
+        {
             sprite.transform.localScale = new Vector3(Mathf.Sign(lookDirection.x) * spriteSize, sprite.transform.localScale.y, sprite.transform.localScale.z);
+            vfxManager.TriggerVfx(VfxType.CloudPush);
+        }
     }
 
     private void Dodge()

@@ -39,5 +39,6 @@ public enum VfxType
     Slash,
     Impact,
     CloudTrail,
+    CloudPush,
     Sparks
 }

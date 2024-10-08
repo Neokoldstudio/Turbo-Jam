@@ -356,8 +356,9 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 3391924254636563841, guid: 327f32e67ff0682459a18c5570368be7, type: 3}
+    - {fileID: 2747835666492896137, guid: 959db51692605b946ae454f06fc6b31b, type: 3}
     - {fileID: 6375092357407455489}
+    - {fileID: 3391924254636563841, guid: 327f32e67ff0682459a18c5570368be7, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -382,7 +383,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 
@@ -401,6 +402,42 @@ MonoBehaviour:
     - Name: gO
       Entry: 10
       Data: 0
+    - Name: hasParent
+      Entry: 5
+      Data: true
+    - Name: parent
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 4
+    - Name: $v
+      Entry: 7
+      Data: 4|Vfx[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 5|Vfx, Assembly-CSharp
+    - Name: gO
+      Entry: 10
+      Data: 2
     - Name: hasParent
       Entry: 5
       Data: true
@@ -741,6 +778,7 @@ MonoBehaviour:
   camMidpoint: {fileID: 2230291586884371782}
   playerAnim: {fileID: 4008404913948361007}
   sfxManager: {fileID: 4752754664125329834}
+  vfxManager: {fileID: 7044994417835511136}
   inEvent: 0
   cantMove: 0
   needParry: 0
@@ -817,7 +855,7 @@ MonoBehaviour:
   - {x: 0.11166549, y: -0.092307, z: 0}
   m_ShapePathHash: 941708981
   m_Mesh: {fileID: 0}
-  m_InstanceId: -1560
+  m_InstanceId: -5434
   m_LocalBounds:
     m_Center: {x: 0.0012985468, y: -0.14628643, z: 0}
     m_Extent: {x: 0.14817321, y: 0.053979427, z: 0}
