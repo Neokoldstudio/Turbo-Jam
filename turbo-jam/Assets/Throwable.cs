@@ -33,6 +33,7 @@ public class Throwable : MonoBehaviour
             item.transform.position = transform.position + new Vector3(0, height, 0);
 
             rb2d.drag = (height < 0.05f) ? 5 : 0.1f;
+            rb2d.angularDrag = (height < 0.05f) ? 5: .05f;
         } 
     }
 }

@@ -17,6 +17,9 @@ public class Enemy : Entity
     [SerializeField, Range(0f, 100f)]
     private float hitForce = 5f;
 
+    [SerializeField, Range(0f, 5f)]
+    private float attackSpeed = 5f;
+
 
     [SerializeField, Range(0f, 100f)]
     private float rotationSpeed = 5f;
@@ -70,6 +73,7 @@ public class Enemy : Entity
         currentState = State.Move;
     }
 
+    bool attackTriggered = false;
     private void Update()
     {
         if (player != null)
@@ -80,17 +84,21 @@ public class Enemy : Entity
             lookDirection = direction;
 
             // Check if player is within attack range
-            if (Vector3.Distance(transform.position, player.position) <= attackRange)
+            if (inRange() && !attackTriggered)
             {
                 currentState = State.Attacking;
             }
             else
             {
-                currentState = State.Move;
+                currentState = State.Idle;
             }
         }
     }
 
+    public bool inRange()
+    {
+        return (Vector3.Distance(transform.position, player.position) <= attackRange);
+    }
     private void Move()
     {
         if (!enemyAnim.GetBool("run"))
@@ -139,6 +147,11 @@ public class Enemy : Entity
         GetComponent<Collider2D>().isTrigger = true;
 
         rb.AddForce(new Vector2(Direction.x * hitForce, Direction.y * hitForce),ForceMode2D.Impulse);
+        rb.drag = 2;
+
+        Interactable weaponDrop = Instantiate(weapon.weapon.pickUpItem, transform.position, weapon.weapon.transform.rotation);
+
+        weapon.UnEquipWeapon();
 
         // hurt SFX plays 
         sfxManager.PlaySound("hurt");

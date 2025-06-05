@@ -11,8 +11,13 @@ public abstract class Weapon : SerializedMonoBehaviour
     [SerializeField, Range(1,6)]
     public int penetration = 1;
 
+    public bool throwable;
+
+    [ShowIf("throwable", true)]
     [Range(0, 2)]
     public float throwChargeTime;
+
+    [ShowIf("throwable", true)]
     public float throwForce;
 
     [SerializeField, Range(0f, 10f)]
@@ -44,7 +49,6 @@ public abstract class Weapon : SerializedMonoBehaviour
     [HideInInspector]
     public Vector2 attackDir;
 
-    [HideInInspector]
     public weaponManager wManager;
 
     public virtual bool Attack(Vector2 direction)

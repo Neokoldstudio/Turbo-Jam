@@ -159,7 +159,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: -608039784, guid: 14d00e2e1d1223b4ba581a708257efff, type: 3}
-  m_Color: {r: 0.9333334, g: 0.76470596, b: 0.6, a: 1}
+  m_Color: {r: 0, g: 0.16084719, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -308,7 +308,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 10
   m_Sprite: {fileID: -608039784, guid: 14d00e2e1d1223b4ba581a708257efff, type: 3}
-  m_Color: {r: 0.9333334, g: 0.76470596, b: 0.6, a: 1}
+  m_Color: {r: 0, g: 0.16084719, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -380,6 +380,7 @@ MonoBehaviour:
     SerializationNodes: []
   damagePoint: 0
   penetration: 1
+  throwable: 1
   throwChargeTime: 0.5
   throwForce: 15
   attackRange: 0.3

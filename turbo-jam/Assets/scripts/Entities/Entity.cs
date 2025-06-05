@@ -8,6 +8,8 @@ public abstract class Entity : SerializedMonoBehaviour
     [SerializeField, Range(0, 1000)]
     private int healthPoints;
 
+    public Color skinColor;
+
     public SpriteRenderer bodySprite;
 
     public Rigidbody2D rb;

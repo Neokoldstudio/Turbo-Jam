@@ -314,6 +314,7 @@ MonoBehaviour:
     SerializationNodes: []
   damagePoint: 2
   penetration: 4
+  throwable: 1
   throwChargeTime: 2
   throwForce: 8
   attackRange: 4

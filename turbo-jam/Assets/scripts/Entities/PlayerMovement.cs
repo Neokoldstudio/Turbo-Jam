@@ -38,7 +38,6 @@ public class PlayerMovement : Entity
     [SerializeField, Range(0f, 10f)]
     private float maxLookRange;
 
-    public Color skinColor;
 
     private float spriteSize;
     public weaponManager weaponManager;
@@ -213,14 +212,21 @@ public class PlayerMovement : Entity
 
     private void OnHitCanceled(InputAction.CallbackContext inputValue) { }
 
+    bool trigger;
     private void OnDodgePerformed(InputAction.CallbackContext inputValue)
     {
         if (currentState != State.Dodging && currentState != State.Attacking)
         {
+
             playerAnim.SetTrigger("dodge");
             playerAnim.speed = 1f / DodgeAnimSpeed;
             weaponManager.gameObject.SetActive(false);
 
+            if (!trigger)
+            {
+                vfxManager.TriggerVfx(VfxType.CloudPush);
+                trigger = true;
+            }
             DodgeDirection = rb.velocity;
 
             if (DodgeDirection == Vector2.zero)
@@ -233,7 +239,9 @@ public class PlayerMovement : Entity
         }
     }
 
-    private void OnDodgeCanceled(InputAction.CallbackContext inputValue) { }
+    private void OnDodgeCanceled(InputAction.CallbackContext inputValue) {
+        trigger = false;
+    }
 
     public void StopDodge()
     {
@@ -318,7 +326,7 @@ public class PlayerMovement : Entity
     bool throwing = false;
     private void OnThrowPerformed(InputAction.CallbackContext inputValue)
     {
-        if (hasWeapon())
+        if (hasWeapon() && weaponManager.weapon.throwable)
         {
             throwTimer = new Timer(weaponManager.weapon.throwChargeTime);
 
@@ -383,7 +391,7 @@ public class PlayerMovement : Entity
         if (Mathf.Sign(sprite.transform.localScale.x) != Mathf.Sign(lookDirection.x) && lookDirection.x != 0.0f)
         {
             sprite.transform.localScale = new Vector3(Mathf.Sign(lookDirection.x) * spriteSize, sprite.transform.localScale.y, sprite.transform.localScale.z);
-            vfxManager.TriggerVfx(VfxType.CloudPush);
+            
         }
     }
 
@@ -397,6 +405,7 @@ public class PlayerMovement : Entity
         Vector2 velocity = DodgeDirection.normalized * DodgeSpd * speedMultiplier;
 
         rb.velocity = velocity;
+
 
         DodgeElapsedTime += Time.fixedDeltaTime;
 
@@ -413,6 +422,7 @@ public class PlayerMovement : Entity
             // SFX player attacking
             // AudioSource source = Instantiate(audioSource, transform.position, Quaternion.identity);
             sfxManager.PlaySound("attack");
+            vfxManager.TriggerVfx(VfxType.CloudPush);
         }
         currentState = State.Move;
         UpdateVelocity();

@@ -13,14 +13,13 @@ public class weaponManager : SerializedMonoBehaviour
     public Animator animator;
     public RuntimeAnimatorController handsAnimation;
 
-    [HideInInspector]
     public GameObject hands;
     [HideInInspector]
     public Color skinColor;
 
     public void Shake()
     {
-        CinemachineShake.Instance.Shake(5f, .1f);
+        CinemachineShake.Instance.Shake(3f, .1f);
     }
     public void Swing()
     {
@@ -114,7 +113,7 @@ public class weaponManager : SerializedMonoBehaviour
         animator.runtimeAnimatorController = instantiatedWeapon.animatorController;
         UpdateHandsVisuals();
     }
-    void UnEquipWeapon()
+    public void UnEquipWeapon()
     {
         Destroy(weapon.gameObject);
         weapon = null;
